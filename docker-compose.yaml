@@ -1,7 +1,7 @@
 services:
   apache-php:
     build: .
-    container_name: laravel-osssd-cluster9
+    container_name: laravel-osssdsss-cluster9
     ports:
       - "1309:80"
     env_file:
