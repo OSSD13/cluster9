@@ -137,7 +137,7 @@
                         <h5>จดจำฉัน</h5>
                     </label>
                 </div>
-                <button class="btn w-100">เข้าสู่ระบบ</button>
+                <button class="btn w-100" herf="{{ route('home') }}">เข้าสู่ระบบ</button>
             </div>
         </div>
         <div class="right-panel d-flex flex-column justify-content-start text-center" style="width: 40%;">
