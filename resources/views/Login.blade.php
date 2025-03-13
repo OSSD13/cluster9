@@ -130,7 +130,7 @@
                 </label>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control">
-                    <span class="input-group-text"><i class="bi bi-eye"></i></span>
+                   
                 </div>
                 <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
