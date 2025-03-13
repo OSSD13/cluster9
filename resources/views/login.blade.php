@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    
     <style>
         body,
         html {
@@ -28,6 +29,7 @@
 
         .left-panel {
             width: 60%;
+            height: 100%;
             background-color: white;
             display: flex;
             justify-content: center;
@@ -36,7 +38,7 @@
 
         .right-panel {
             width: 40%;
-            height: 100vh;
+            height: 100%;
             /* เพิ่มให้ขยายเต็มจอ */
             display: flex;
             flex-direction: column;
@@ -55,18 +57,18 @@
         }
 
         h3 {
-            font-size: 40px;
+            font-size: 30px;
             /* เพิ่มขนาดหัวข้อ */
-            margin-top: 20px;
+            margin-top: 10px;
             /* เพิ่มระยะห่างด้านบน */
         }
 
         p {
-            font-size: 30px;
+            font-size: 20px;
         }
 
         h5 {
-            font-size: 25px;
+            font-size: 15px;
         }
 
         .form-label {
@@ -104,6 +106,13 @@
             font-size: 60px;
             margin-top: 650px;
         }
+
+        .container {
+          width: 80%;  /* แทนที่จะใช้ 800px */
+          margin: auto;
+        }
+
+
     </style>
 </head>
 
