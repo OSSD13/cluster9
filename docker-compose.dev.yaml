@@ -1,0 +1,11 @@
+services:
+  apache-php:
+    build: .
+    container_name: laravel-osssd-cluster9
+    ports:
+      - "1309:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vender
+    env_file:
+      - .env
