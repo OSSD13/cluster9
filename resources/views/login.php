@@ -1,61 +1,38 @@
 <?php
 session_start();
-require 'vendor/autoload.php'; // โหลด dotenv (ถ้าใช้ Composer)
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
-// เชื่อมต่อฐานข้อมูลจาก .env
-$conn = new mysqli(
-    $_ENV['DB_HOST'],
-    $_ENV['DB_USERNAME'],
-    $_ENV['DB_PASSWORD'],
-    $_ENV['DB_DATABASE'],
-    $_ENV['DB_PORT']
-);
+// เชื่อมต่อฐานข้อมูล
+$host = '10.80.6.165';
+$dbname = 'cluster9'; // เปลี่ยนเป็นชื่อฐานข้อมูลของคุณ
+$username = 'cluster9'; // เปลี่ยนเป็น username ของคุณ
+$password = 'WZLGbyOu'; // เปลี่ยนเป็น password ของคุณ
 
-// เช็คการเชื่อมต่อฐานข้อมูล
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 
-// รับค่าจากฟอร์ม
-$username = $_POST['username'];
-$password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user_name = $_POST['user_name'];
+    $user_password = $_POST['user_password'];
 
-// ใช้ Prepared Statement ป้องกัน SQL Injection
-$sql = "SELECT * FROM users WHERE user_name = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
+    // ค้นหาผู้ใช้ในฐานข้อมูล
+    $stmt = $conn->prepare("SELECT * FROM var_users WHERE user_name = :user_name");
+    $stmt->execute(['user_name' => $user_name]);
+    $user = $stmt->fetch();
 
-if ($result->num_rows == 1) {
-    $user = $result->fetch_assoc();
-
-    // ตรวจสอบรหัสผ่าน (ต้องเป็นแบบเข้ารหัส)
-    if (password_verify($password, $user['user_password'])) {
-        $_SESSION['username'] = $user['user_name'];
-        $_SESSION['role'] = $user['user_role'];
-
-        // เช็ค role และ redirect ไปยังหน้าเหมาะสม
-        switch ($user['user_role']) {
-            case 'V':
-                header("Location: /volunteer_home.html"); // หรือจะใช้ /volunteer_home.php ถ้าคุณใช้ PHP
-                exit();
-            case 'P':
-                header("Location: /provincial_home.html"); // หรือ /provincial_home.php
-                exit();
-            case 'C':
-                header("Location: /central_home.html"); // หรือ /central_home.php
-                exit();
-            default:
-                header("Location: /"); // ใช้ /login เพื่อ redirect ไปยังหน้า login
-                exit();
-        }
+    if ($user && password_verify($user_password, $user['user_password'])) {
+        // Login สำเร็จ
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_name'] = $user['user_name'];
+        $_SESSION['user_role'] = $user['user_role'];
+        header('Location: dashboard.php'); // เปลี่ยนเส้นทางไปยังหน้า dashboard
+        exit();
+    } else {
+        // Login ไม่สำเร็จ
+        echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
     }
 }
-
-// ถ้าข้อมูลไม่ถูกต้อง => กลับไปหน้า login
-header("Location: login.html?error=invalid");
-exit();
 ?>

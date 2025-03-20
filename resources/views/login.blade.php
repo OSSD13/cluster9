@@ -82,16 +82,17 @@
                 <h4 class="mb-4 text-center">ลงชื่อเข้าใช้งาน</h4>
                 <div class="mb-3">
                     <label class="form-label">ชื่อผู้ใช้งาน</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" name="user_name" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">รหัสผ่าน</label>
-                    <input type="password" class="form-control" required>
+                    <input type="password" class="form-control" name="user_password" required>
                 </div>
-                <button class="btn btn-custom w-100">เข้าสู่ระบบ</button>
+                <button type="submit" class="btn btn-custom w-100">เข้าสู่ระบบ</button>
             </form>
         </div>
     </div>
 </body>
 
 </html>
+
