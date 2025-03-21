@@ -9,7 +9,7 @@ class UserController extends Controller
     public function getUserData()
     {
         // ดึงข้อมูลทั้งหมดจาก column var_user
-        $users = UserCluster::pluck('user_name');
+        $users = UserCluster::all();
 
         // แสดงข้อมูลออกมา
         return $users;

@@ -78,7 +78,8 @@
             <h1 class="fs-4 mb-0">บันทึกกิจกรรมจิตอาสา</h1>
         </div>
         <div class="form-container">
-            <form action="login.php" method="POST">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
                 <h4 class="mb-4 text-center">ลงชื่อเข้าใช้งาน</h4>
                 <div class="mb-3">
                     <label class="form-label">ชื่อผู้ใช้งาน</label>

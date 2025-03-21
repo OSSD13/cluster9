@@ -3,9 +3,9 @@ session_start();
 
 // เชื่อมต่อฐานข้อมูล
 $host = '10.80.6.165';
-$dbname = 'cluster9'; // เปลี่ยนเป็นชื่อฐานข้อมูลของคุณ
-$username = 'cluster9'; // เปลี่ยนเป็น username ของคุณ
-$password = 'WZLGbyOu'; // เปลี่ยนเป็น password ของคุณ
+$dbname = 'cluster9';
+$username = 'cluster9';
+$password = 'WZLGbyOu';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -28,11 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['user_name'] = $user['user_name'];
         $_SESSION['user_role'] = $user['user_role'];
-        header('Location: dashboard.php'); // เปลี่ยนเส้นทางไปยังหน้า dashboard
+        header('Location: /home'); // เปลี่ยนเส้นทางไปยังหน้า /home
         exit();
     } else {
         // Login ไม่สำเร็จ
-        echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+        header('Location: /login'); // เปลี่ยนเส้นทางไปยังหน้า /login
+        exit();
     }
 }
 ?>
