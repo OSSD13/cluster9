@@ -38,15 +38,24 @@
         }
 
         .menu-item {
-            padding: 10px 20px;
+            padding: 12px 20px;
+            margin-bottom: 5px;
             color: #333;
             text-decoration: none;
             display: block;
+            line-height: 1.5;
+            vertical-align: middle;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .menu-item:hover {
             background-color: #f0f0f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
 
         .main-content {
             flex: 1;
@@ -94,7 +103,21 @@
             <div class="logo">
                 <span>VAR</span>
             </div>
-            <a href="#" class="menu-item">หน้าหลัก</a>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+            <a href="#" class="menu-item">
+                <i class="fas fa-home"></i> หน้าหลัก
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-search-check"></i> ตรวจสอบกิจกรรม
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar"></i> รายงานกิจกรรม
+            </a>
+
         </div>
         <div class="main-content">
             <div class="header">
