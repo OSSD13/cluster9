@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class UserCluster extends Model
+class UserCluster extends Model implements Authenticatable
 {
-    protected $table = 'var_users'; // ชื่อตารางที่ถูกต้อง
-    protected $primaryKey = 'user_id'; // Primary Key ของตาราง
+    use AuthenticatableTrait;
 
-    public $timestamps = false; // ปิดการใช้งาน created_at และ updated_at
-
+    protected $table = 'var_users';
+    protected $primaryKey = 'user_id';
+    public $timestamps = false;
+    protected $hidden = ['user_password'];
     protected $fillable = [
         'user_id',
         'user_name',

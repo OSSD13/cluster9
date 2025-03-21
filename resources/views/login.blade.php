@@ -81,9 +81,14 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <h4 class="mb-4 text-center">ลงชื่อเข้าใช้งาน</h4>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
                 <div class="mb-3">
                     <label class="form-label">ชื่อผู้ใช้งาน</label>
-                    <input type="text" class="form-control" name="user_name" required>
+                    <input type="text" class="form-control" name="username" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">รหัสผ่าน</label>
