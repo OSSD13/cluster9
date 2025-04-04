@@ -17,11 +17,20 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/homeprovince', function () {
+    return view('layout.layoutprovince');
+});
+
+Route::get('/homecentral', function () {
+    return view('layout.layoutcentral');
+});
+
+Route::get('/homevolunteer', function () {
+    return view('layout.layoutvolunteer');
+});
+
 Route::post('/login', [UserController::class, 'login'])->name('login'); // เพิ่ม ->name('login')
 
-Route::get('/home', function () {
-    return view('home');
-});
 
 Route::get('/user-data', [UserController::class, 'getUserData']);
 
@@ -39,5 +48,3 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
-Route::post('/homepofficer', [ActivityController::class, 'index'])->name('homepofficer');
-Route::get('/homepofficer', [ActivityController::class, 'index'])->name('homepofficer');

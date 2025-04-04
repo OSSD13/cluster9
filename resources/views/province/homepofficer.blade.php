@@ -218,36 +218,6 @@
                 <p>ไม่มีข้อมูลกิจกรรม</p>
                 @endif
             </div>
-
-            <div id="activities-section" class="activity-check-area" style="display: none;">
-                <h2>ตรวจสอบกิจกรรม</h2>
-                <table class="activity-check-table">
-                    <thead>
-                        <tr>
-                            <th>ชื่อ</th>
-                            <th>วันที่ทำกิจกรรม</th>
-                            <th>จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if ($activities->isEmpty())
-                        <tr>
-                            <td colspan="3">ไม่มีข้อมูลกิจกรรม</td>
-                        </tr>
-                        @else
-                        @foreach ($activities as $activity)
-                        <tr>
-                            <td>{{ $activity->activity_name }}</td>
-                            <td>{{ $activity->activity_date }}</td>
-                            <td>
-                                <button class="check-button" onclick="confirmCheckActivity({{ $activity->activity_id }})">ตรวจสอบ</button>
-                            </td>
-                        </tr>
-                        @endforeach
-                        @endif
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 
