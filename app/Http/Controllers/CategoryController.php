@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index_central()
     {
         $categories = Category::all();
-        return view('homecofficer', compact('categories'));
+        return view('central.main', compact('categories'));
+    }
+    public function index_province()
+    {
+        $categories = Category::all();
+        return view('province.main', compact('categories'));
+    }
+    public function index_volunteer()
+    {
+        $categories = Category::all();
+        return view('volunteer.main', compact('categories'));
     }
 
     public function destroy(Category $category)

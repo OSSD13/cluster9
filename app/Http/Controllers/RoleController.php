@@ -10,18 +10,18 @@ class RoleController extends Controller
     public function v()
     {
         $categories = Category::all();
-        return view('homevolunteer', compact('categories'));
+        return view('layout.layoutvolunteer', compact('categories'));
     }
 
     public function p()
     {
         $categories = Category::all();
-        return view('homepofficer', compact('categories'));
+        return view('layout.layoutprovince', compact('categories'));
     }
 
     public function c()
     {
         $categories = Category::all();
-        return view('homecofficer', compact('categories'));
+        return view('layout.layoutcentral', compact('categories'));
     }
 }

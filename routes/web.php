@@ -43,8 +43,24 @@ Route::post('/logout', function () {
     return redirect('/login');
 })->name('logout');
 
-Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth');
+Route::get('/categories', [CategoryController::class, 'indexcentral'])->middleware('auth');
+
+Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
+Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
+
+Route::get('/categories/volunteer', function () {
+    $categories = \App\Models\Category::all(); // Fetch categories from the database
+    return view('volunteer.main', compact('categories'));
+})->name('vcategories');
+
+Route::get('/history', function () {
+    $categories = \App\Models\Category::all(); // Fetch categories from the database
+    return view('volunteer.main', compact('categories'));
+})->name('history');
+
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+
 

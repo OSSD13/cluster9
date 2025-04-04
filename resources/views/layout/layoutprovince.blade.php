@@ -96,6 +96,66 @@
             background-color: #d32f2f;
         }
 
+        .category-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .category-table th,
+        .category-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .category-table th {
+            background-color: #f2f2f2;
+        }
+
+        .activity-check-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-check-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-check-table th,
+        .activity-check-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activity-check-table th {
+            background-color: #f2f2f2;
+        }
+
+        .check-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .check-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -137,8 +197,14 @@
                     <button type="submit" class="logout-button">ออกจากระบบ</button>
                 </form>
             </div>
+            @yield('content')
         </div>
     </div>
+    <script>
+        function showCategories() {
+            window.location.href = "{{ route('pcategories') }}";
+        }
+    </script>
 </body>
 
 </html>
