@@ -69,6 +69,7 @@
             background-color: #fff;
             padding: 10px 20px;
             border-bottom: 1px solid #e0e0e0;
+            border-radius: 8px;
         }
 
         .user-profile {
@@ -94,6 +95,67 @@
         .logout-button:hover {
             background-color: #d32f2f;
         }
+
+        .category-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .category-table th,
+        .category-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .category-table th {
+            background-color: #f2f2f2;
+        }
+
+        .activity-check-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-check-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-check-table th,
+        .activity-check-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activity-check-table th {
+            background-color: #f2f2f2;
+        }
+
+        .check-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .check-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -105,11 +167,11 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="#" class="menu-item">
+            <a href="#" class="menu-item" onclick="showCategories()">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-search-check"></i> ตรวจสอบกิจกรรม
+            <a href="#" class="menu-item" onclick="showActivities()">
+                <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
@@ -122,18 +184,95 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                        {{ Auth::user()->user_fname . ' ' . Auth::user()->user_lname }}</div>
+                <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                    {{ Auth::user()->user_name }}</div>
                 @else
-                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="logout-button">ออกจากระบบ</button>
                 </form>
             </div>
+
+            <div id="categories-section" class="category-area">
+                <h2>รายการหมวดหมู่</h2>
+                @if ($categories->count() > 0)
+                <table class="category-table">
+                    <thead>
+                        <tr>
+                            <th>ชื่อหมวดหมู่</th>
+                            <th>รายละเอียด</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->category_name }}</td>
+                            <td>{{ $category->category_description }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
+                <p>ไม่มีข้อมูลกิจกรรม</p>
+                @endif
+            </div>
+
+            <div id="activities-section" class="activity-check-area" style="display: none;">
+                <h2>ตรวจสอบกิจกรรม</h2>
+                <table class="activity-check-table">
+                    <thead>
+                        <tr>
+                            <th>ชื่อ</th>
+                            <th>วันที่ทำกิจกรรม</th>
+                            <th>จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($activities->isEmpty())
+                        <tr>
+                            <td colspan="3">ไม่มีข้อมูลกิจกรรม</td>
+                        </tr>
+                        @else
+                        @foreach ($activities as $activity)
+                        <tr>
+                            <td>{{ $activity->activity_name }}</td>
+                            <td>{{ $activity->activity_date }}</td>
+                            <td>
+                                <button class="check-button" onclick="confirmCheckActivity({{ $activity->activity_id }})">ตรวจสอบ</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+    <script>
+        function showCategories() {
+            document.getElementById('categories-section').style.display = 'block';
+            document.getElementById('activities-section').style.display = 'none';
+        }
+
+        function showActivities() {
+            document.getElementById('categories-section').style.display = 'none';
+            document.getElementById('activities-section').style.display = 'block';
+        }
+
+        function checkActivity(activityId) {
+            // เพิ่ม logic สำหรับตรวจสอบกิจกรรม
+            console.log("ตรวจสอบกิจกรรม ID: " + activityId);
+        }
+
+        function confirmCheckActivity(activityId) {
+            if (confirm("คุณต้องการตรวจสอบกิจกรรมนี้หรือไม่?")) {
+                checkActivity(activityId);
+            }
+        }
+    </script>
 </body>
 
 </html>
