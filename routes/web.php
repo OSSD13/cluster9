@@ -9,11 +9,11 @@ use App\Http\Controllers\ActivityController;
 
 
 
-Route::get('/', function () {
+Route::get('cluster9/', function () {
     return view('login');
 });
 
-Route::get('/login', function () {
+Route::get('cluster9/login', function () {
     return view('login');
 });
 
