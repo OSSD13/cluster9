@@ -99,64 +99,6 @@
                 </tr>
             </tbody>
         </table>
-        <div class="activity-area">
-            <h2>รายการกิจกรรม</h2>
-            <div class="submit-all-activities-area">
-                <button class="submit-button">ส่งชุดกิจกรรมทั้งหมด</button>
-            </div>
-            <table class="activity-table" id="added-activities-table">
-                <thead>
-                    <tr>
-                        <th>หมวดหมู่</th>
-                        <th>ชื่อกิจกรรม</th>
-                        <th>สถานะ</th>
-                        <th>จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ส่งเสริมการรักชุมชน </td>
-                        <td>กิจกรรมส่งเสริมวัฒนธรรมพื้นบ้าน</td>
-                        <td>รอส่วนภูมิภาคตรวจสอบ</td>
-                        <td>
-                            <button class="edit-button">แก้ไข</button>
-                            <button class="logout-button">ลบ</button>
-                            <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>อาสาสมัครสอนหนังสือ </td>
-                        <td>กิจกรรมส่งเสริมภาษาไทยพื้นบ้าน</td>
-                        <td>รอส่วนกลางตรวจสอบ</td>
-                        <td>
-                            <button class="edit-button">แก้ไข</button>
-                            <button class="logout-button">ลบ</button>
-                            <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ปลูกป่าเพื่อสิ่งแวดล้อม</td>
-                        <td>กิจกรรม 3</td>
-                        <td>รอแก้ไข</td>
-                        <td>
-                            <button class="edit-button">แก้ไข</button>
-                            <button class="logout-button">ลบ</button>
-                            <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ทำความสะอาดสถานที่สาธารณะ</td>
-                        <td>กิจกรรม 4</td>
-                        <td>ผ่านการอนุมัติ</td>
-                        <td>
-                            <button class="edit-button">แก้ไข</button>
-                            <button class="logout-button">ลบ</button>
-                            <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
     <div id="activityModal" class="modal">
         <div class="modal-content">
