@@ -8,9 +8,9 @@
             <table class="category-table">
                 <thead>
                     <tr>
-                        <th>ชื่อหมวหมู่</th>
+                        <th>ชื่อหมวดหมู่</th>
                         <th>รายละเอียด</th>
-                        <th>สถานะ</th>
+                        <th>ประเภท</th>
                         <th>ทำกิจกรรม</th>
                     </tr>
                 </thead>
@@ -21,11 +21,11 @@
                             <td>{{ $category->category_description }}</td>
                             <td>
                                 @if ($category->category_mandatory == 1)
-                                    <span style="color: green;"><i class="fas fa-check"></i>
-                                        กิจกรรมนี้บังคับ</span>
+                                    <span style="color: #FF0000;"></i>
+                                        *หมวดหมู่บังคับ*</span>
                                 @else
-                                    <span style="color: gray;"><i class="fas fa-times"></i>
-                                        กิจกรรมนี้ไม่บังคับ</span>
+                                    <span style="color: gray;"></i>
+                                        หมวดหมู่ไม่บังคับ</span>
                                 @endif
                             </td>
                             <td style="text-align: center;">

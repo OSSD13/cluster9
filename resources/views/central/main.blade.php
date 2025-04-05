@@ -28,44 +28,51 @@
 
     <h2>รายการหมวดหมู่</h2>
     @if ($categories->count() > 0)
-        <table class="category-table">
-            <thead>
-                <tr>
-                    <th>ชื่อหมวดหมู่</th>
-                    <th>รายละเอียด</th>
-                    <th>สถานะ</th>
-                    <th>การจัดการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categories as $category)
+        @php
+            $categories = $categories->sortByDesc('category_mandatory');
+        @endphp
+        <div class="category-table-container">
+            <table class="category-table">
+                <thead>
                     <tr>
-                        <td>{{ $category->category_name }}</td>
-                        <td>{{ $category->category_description }}</td>
-                        <td>
-                            @if ($category->category_mandatory == 1)
-                                <span style="color: green;"><i class="fas fa-check"></i>
-                                    กิจกรรมนี้บังคับ</span>
-                            @else
-                                <span style="color: gray;"><i class="fas fa-times"></i>
-                                    กิจกรรมนี้ไม่บังคับ</span>
-                            @endif
-                        </td>
-                        <td style="text-align: center;">
-                            <button class="edit-button"
-                                onclick="openEditModal({{ $category->category_id }}, '{{ $category->category_name }}', '{{ $category->category_description }}', {{ $category->category_mandatory }})">แก้ไข</button>
-                            <form action="{{ route('categories.destroy', $category->category_id) }}"
-                                method="POST" style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?')">ลบ</button>
-                            </form>
-                        </td>
+                        <th style="width: 15%;">ชื่อหมวดหมู่</th>
+                        <th style="width: 60%;">รายละเอียด</th>
+                        <th style="width: 15%;">ประเภท</th>
+                        <th style="width: 10%;">การจัดการ</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->category_name }}</td>
+                            <td>{{ $category->category_description }}</td>
+                            <td>
+                                @if ($category->category_mandatory == 1)
+                                    <span style="color: #FF0000;">
+                                        *หมวดหมู่บังคับ*
+                                    </span>
+                                @else
+                                    <span style="color: gray;">
+                                        หมวดหมู่ไม่บังคับ
+                                    </span>
+                                @endif
+                            </td>
+                            <td style="text-align: center;">
+                                <button class="edit-button"
+                                    onclick="openEditModal({{ $category->category_id }}, '{{ $category->category_name }}', '{{ $category->category_description }}', {{ $category->category_mandatory }})">แก้ไข</button>
+                                <form action="{{ route('categories.destroy', $category->category_id) }}"
+                                    method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?')">ลบ</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     @else
         <p>ไม่มีข้อมูลหมวดหมู่</p>
     @endif
