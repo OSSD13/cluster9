@@ -421,7 +421,7 @@
             <div class="header">
                 @if (Auth::check())
                 <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                    {{ Auth::user()->user_name }}</div>
+                    {{ Auth::user()->user_nameth }}</div>
                 @else
                 <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
