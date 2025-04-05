@@ -406,7 +406,9 @@
     <div class="container">
         <div class="sidebar">
             <div class="logo">
+                <img src="logo.png" alt="Logo" width="200" height="100">
                 <span>VAR</span>
+
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -440,6 +442,137 @@
         function showHistory() {
             window.location.href = "{{ route('history') }}";
         }
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tab = this.getAttribute('data-tab');
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tab).classList.add('active');
+            });
+        });
+        var modal = document.getElementById("activityModal");
+
+        function openActivityModal(categoryId) {
+            modal.style.display = "block";
+            document.getElementById('activity-form').action = '/activities/' + categoryId;
+            document.getElementById('category_id').value = categoryId;
+        }
+
+        function closeActivityModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function previewImages(event) {
+            var files = event.target.files;
+            var imagesPreview = document.getElementById('images-preview');
+            imagesPreview.innerHTML = '';
+
+            if (files.length > 5) {
+                alert("คุณสามารถเลือกรูปภาพได้สูงสุด 5 รูปเท่านั้น");
+                return;
+            }
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    img.style.marginRight = '10px';
+                    imagesPreview.appendChild(img);
+                }
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function doActivity(categoryId) {
+            document.getElementById('activity-' + categoryId).disabled = true;
+            document.getElementById('activity-' + categoryId).innerText = "ทำแล้ว";
+            document.getElementById('edit-' + categoryId).style.display = "inline-block";
+        }
+        var addedActivities = [];
+
+        function addActivityToTable(categoryId, categoryName, activityName, activityDescription) {
+            var table = document.getElementById('added-activities-table').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            cell1.innerHTML = categoryName;
+            cell2.innerHTML = activityName;
+
+            // สร้างสถานะแบบ random
+            var statuses = ["รอส่วนภูมิภาคตรวจสอบ", "รอส่วนกลางตรวจสอบ", "รอแก้ไข", "ผ่านการอนุมัติ"];
+            var randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            cell3.innerHTML = randomStatus;
+
+            cell4.innerHTML =
+                '<button class="edit-button">แก้ไข</button> <button class="logout-button">ลบ</button> <button class="view-button">ดูข้อมูลเพิ่มเติม</button>';
+
+            addedActivities.push({
+                categoryId: categoryId,
+                activityName: activityName,
+                activityDescription: activityDescription,
+                status: randomStatus
+            });
+        }
+
+        document.getElementById('activity-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var categoryId = document.getElementById('category_id').value;
+            var categoryName = document.querySelector('#activity-' + categoryId).closest('tr').cells[0].textContent;
+            var activityName = document.getElementById('activity_name').value;
+            var activityDescription = document.getElementById('activity_description').value;
+
+            addActivityToTable(categoryId, categoryName, activityName, activityDescription);
+            closeActivityModal();
+        });
+
+        var activityDetailsModal = document.getElementById("activityDetailsModal");
+
+        function openActivityDetailsModal(row) {
+            var category = row.cells[0].textContent;
+            var activityName = row.cells[1].textContent;
+            var activityDate = row.cells[2].textContent;
+
+            var detailsContent = document.getElementById("activityDetailsContent");
+            detailsContent.innerHTML = `
+        <p><strong>ชื่อกิจกรรม:</strong> ${activityName}</p>
+        <p><strong>หมวดหมู่กิจกรรม:</strong> ${category}</p>
+        <p><strong>วันที่ทำกิจกรรม:</strong> ${activityDate}</p>
+        `;
+
+            activityDetailsModal.style.display = "block";
+        }
+
+        function closeActivityDetailsModal() {
+            activityDetailsModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == activityDetailsModal) {
+                activityDetailsModal.style.display = "none";
+            }
+        }
+
+        // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
+        document.getElementById('history-activities-table').addEventListener('click', function(event) {
+            if (event.target.classList.contains('view-details-button')) {
+                var row = event.target.closest('tr');
+                openActivityDetailsModal(row);
+            }
+        });
     </script>
 </body>
 
