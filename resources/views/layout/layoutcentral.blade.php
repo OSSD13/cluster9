@@ -242,6 +242,26 @@
         function showCategories() {
             window.location.href = "{{ route('ccategories') }}";
         }
+
+        var modal = document.getElementById("editModal");
+
+        function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
+            modal.style.display = "block";
+            document.getElementById('edit-form').action = '/categories/' + categoryId;
+            document.getElementById('edit_category_name').value = categoryName;
+            document.getElementById('edit_category_description').value = categoryDescription;
+            document.getElementById('edit_category_mandatory').value = categoryMandatory;
+        }
+
+        function closeEditModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 
