@@ -26,11 +26,11 @@ class UserController extends Controller
 
         switch ($user->user_role) {
             case 'V':
-                return redirect('/volunteer');
+                return redirect('/categories/volunteer');
             case 'P':
-                return redirect()->intended('/pofficer');
+                return redirect()->intended('/categories/province');
             case 'C':
-                return redirect()->intended('/cofficer');
+                return redirect()->intended('/categories/central');
             default:
                 return redirect()->intended('/home');
         }
