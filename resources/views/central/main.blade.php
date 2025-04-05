@@ -33,7 +33,7 @@
                 <tr>
                     <th>ชื่อหมวดหมู่</th>
                     <th>รายละเอียด</th>
-                    <th>สถานะ</th>
+                    <th>ประเภท</th>
                     <th>การจัดการ</th>
                 </tr>
             </thead>
@@ -44,11 +44,9 @@
                         <td>{{ $category->category_description }}</td>
                         <td>
                             @if ($category->category_mandatory == 1)
-                                <span style="color: green;"><i class="fas fa-check"></i>
-                                    กิจกรรมนี้บังคับ</span>
+                                <span style="color: green;"><i class="fas fa-check"></i> กิจกรรมนี้บังคับ</span>
                             @else
-                                <span style="color: gray;"><i class="fas fa-times"></i>
-                                    กิจกรรมนี้ไม่บังคับ</span>
+                                <span style="color: gray;"><i class="fas fa-times"></i> กิจกรรมนี้ไม่บังคับ</span>
                             @endif
                         </td>
                         <td style="text-align: center;">
@@ -69,6 +67,33 @@
     @else
         <p>ไม่มีข้อมูลหมวดหมู่</p>
     @endif
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>แก้ไขหมวดหมู่</h2>
+        <form id="edit-form" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label for="edit_category_name">ชื่อหมวดหมู่:</label>
+                <input type="text" id="edit_category_name" name="category_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_category_description">รายละเอียด:</label>
+                <textarea id="edit_category_description" name="category_description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="edit_category_mandatory">ประเภท:</label>
+                <select id="edit_category_mandatory" name="category_mandatory" class="form-control" required>
+                    <option value="1">บังคับ</option>
+                    <option value="0">ไม่บังคับ</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">อัปเดตหมวดหมู่</button>
+        </form>
+    </div>
 </div>
 
 @endsection

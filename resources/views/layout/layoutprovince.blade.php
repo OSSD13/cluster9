@@ -206,7 +206,24 @@
     </div>
     <script>
         function showCategories() {
-            window.location.href = "{{ route('pcategories') }}";
+            document.getElementById('categories-section').style.display = 'block';
+            document.getElementById('activities-section').style.display = 'none';
+        }
+
+        function showActivities() {
+            document.getElementById('categories-section').style.display = 'none';
+            document.getElementById('activities-section').style.display = 'block';
+        }
+
+        function checkActivity(activityId) {
+            // เพิ่ม logic สำหรับตรวจสอบกิจกรรม
+            console.log("ตรวจสอบกิจกรรม ID: " + activityId);
+        }
+
+        function confirmCheckActivity(activityId) {
+            if (confirm("คุณต้องการตรวจสอบกิจกรรมนี้หรือไม่?")) {
+                checkActivity(activityId);
+            }
         }
     </script>
 </body>
