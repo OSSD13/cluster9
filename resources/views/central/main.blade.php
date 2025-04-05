@@ -36,9 +36,9 @@
                 <thead>
                     <tr>
                         <th style="width: 15%;">ชื่อหมวดหมู่</th>
-                        <th style="width: 60%;">รายละเอียด</th>
+                        <th style="width: 55%;">รายละเอียด</th>
                         <th style="width: 15%;">ประเภท</th>
-                        <th style="width: 10%;">การจัดการ</th>
+                        <th style="width: 15%;">การจัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
