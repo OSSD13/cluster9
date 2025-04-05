@@ -59,7 +59,6 @@
 
         .main-content {
             flex: 1;
-            padding: 20px;
         }
 
         .header {
@@ -67,9 +66,12 @@
             justify-content: space-between;
             align-items: center;
             background-color: #fff;
-            padding: 10px 20px;
+            padding: 22px 20px;
             border-bottom: 1px solid #e0e0e0;
-            border-radius: 8px;
+        }
+
+        .main-body {
+            padding: 20px;
         }
 
         .user-profile {
@@ -163,7 +165,7 @@
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <span>VAR</span>
+                <img style="width: 70px; heigh: 70px;" src="{{asset('public/assets/picture/logo.png')}}"  alt="Website Logo">
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -187,17 +189,19 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                    {{ Auth::user()->user_nameth }}</div>
+                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                        {{ Auth::user()->user_nameth }}</div>
                 @else
-                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="logout-button">ออกจากระบบ</button>
                 </form>
             </div>
-            @yield('content')
+            <div class="main-body">
+                @yield('content')
+            </div>
         </div>
     </div>
     <script>
