@@ -142,12 +142,9 @@
             background-color: #dc3545;
             color: white;
             padding: 10px 15px;
-            /* Match edit-button size */
             font-size: 14px;
-            /* Match edit-button font size */
             border: none;
             border-radius: 5px;
-            /* Match edit-button border radius */
             cursor: pointer;
         }
 
@@ -155,12 +152,9 @@
             background-color: #007bff;
             color: white;
             padding: 10px 15px;
-            /* Match btn-danger size */
             font-size: 14px;
-            /* Match btn-danger font size */
             border: none;
             border-radius: 5px;
-            /* Match btn-danger border radius */
             cursor: pointer;
         }
 
@@ -190,14 +184,6 @@
 
         .btn-success:hover {
             background-color: #45a049;
-        }
-        .edit-button {
-            background-color: #007bff;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
         }
 
         .modal {
