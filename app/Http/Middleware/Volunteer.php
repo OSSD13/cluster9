@@ -11,6 +11,7 @@ class Volunteer
         if (Auth::check() && Auth::user()->user_role === 'V') {
             return $next($request);
         }
+        
         return redirect('/login')->withErrors(['message' => 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้']);
     }
 }

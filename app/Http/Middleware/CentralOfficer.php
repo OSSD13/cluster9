@@ -10,7 +10,7 @@ class CentralOfficer
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'C') {
+        if (Auth::check() && Auth::user()->user_role === 'C') {
             return $next($request);
         }
 

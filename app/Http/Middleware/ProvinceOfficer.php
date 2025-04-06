@@ -9,7 +9,7 @@ class ProvinceOfficer
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'P') {
+        if (Auth::check() && Auth::user()->user_role === 'P') {
             return $next($request);
         }
 
