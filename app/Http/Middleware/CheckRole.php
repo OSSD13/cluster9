@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (Auth::check() && Auth::user()->user_role == $role) {
-            return $next($request);
+        // ตรวจสอบว่าผู้ใช้ล็อกอินหรือไม่
+        if (!Auth::check()) {
+            return redirect('/login');
         }
 
-        return redirect('/home')->with('error', 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้');
+        // ตรวจสอบ role ของผู้ใช้
+        $user = Auth::user();
+        if ($user->user_role !== $role) {
+            return redirect('/login')->withErrors(['message' => 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้']);
+        }
+
+        return $next($request);
     }
 }
