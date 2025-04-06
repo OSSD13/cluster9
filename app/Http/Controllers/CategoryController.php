@@ -19,10 +19,12 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('province.main', compact('categories'));
     }
-    public function index_volunteer()
+
+    //ดึงและส่งค่า Category สำหรับ Volunteer 
+    //ใช้ใน VolunteerController
+    public function getVolunteerCategory() 
     {
-        $categories = Category::all();
-        return view('volunteer.main', compact('categories'));
+        return $categories = Category::all();
     }
 
     public function destroy(Category $category)

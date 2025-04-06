@@ -425,7 +425,7 @@
     </div>
     <script>
         function showCategories() {
-            window.location.href = "{{ route('vcategories') }}";
+            window.location.href = "{{ route('home_volunteer') }}";
         }
 
         function showHistory() {

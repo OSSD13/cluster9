@@ -44,6 +44,7 @@
     </div>
     <div class="activity-area">
         <h2>รายการกิจกรรม</h2>
+        @if ($activities->count() > 0)
         <div class="submit-all-activities-area">
             <button class="submit-button">ส่งชุดกิจกรรมทั้งหมด</button>
         </div>
@@ -57,48 +58,34 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($activities as $activity)
                 <tr>
-                    <td>ส่งเสริมการรักชุมชน </td>
-                    <td>กิจกรรมส่งเสริมวัฒนธรรมพื้นบ้าน</td>
-                    <td>รอส่วนภูมิภาคตรวจสอบ</td>
+                    <td> @foreach ($categories as $category)
+                            {{-- เทียบ ID ของ Category ทั้งสองตาราง เพื่อหาชื่อหมวดหมู่ของกิจกกรม --}}
+                            @if($activity->categories_id == $category->category_id)
+                                {{-- ถ้า ID ตรงกัน จะแสดงชื่อหมวดหมู่ --}}
+                                {{ $category->category_name }}
+                                <?php break; ?>
+                            @else
+                                ไม่พบหมวดหมู่นี้
+                                <?php break; ?>
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>{{ $activity->activity_name }}</td>
+                    <td>{{ $activity->activity_status }}</td>
                     <td>
                         <button class="edit-button">แก้ไข</button>
                         <button class="logout-button">ลบ</button>
                         <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>อาสาสมัครสอนหนังสือ </td>
-                    <td>กิจกรรมส่งเสริมภาษาไทยพื้นบ้าน</td>
-                    <td>รอส่วนกลางตรวจสอบ</td>
-                    <td>
-                        <button class="edit-button">แก้ไข</button>
-                        <button class="logout-button">ลบ</button>
-                        <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ปลูกป่าเพื่อสิ่งแวดล้อม</td>
-                    <td>กิจกรรม 3</td>
-                    <td>รอแก้ไข</td>
-                    <td>
-                        <button class="edit-button">แก้ไข</button>
-                        <button class="logout-button">ลบ</button>
-                        <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ทำความสะอาดสถานที่สาธารณะ</td>
-                    <td>กิจกรรม 4</td>
-                    <td>ผ่านการอนุมัติ</td>
-                    <td>
-                        <button class="edit-button">แก้ไข</button>
-                        <button class="logout-button">ลบ</button>
-                        <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
+        @else
+            <p>ไม่มีข้อมูลกิจกรรม</p>
+        @endif
     </div>
     <div id="activityModal" class="modal">
         <div class="modal-content">

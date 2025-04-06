@@ -26,7 +26,7 @@ class UserController extends Controller
 
         switch ($user->user_role) {
             case 'V':
-                return redirect('/categories/volunteer');
+                return redirect('/home/volunteer');
             case 'P':
                 return redirect('/categories/province');
             case 'C':
