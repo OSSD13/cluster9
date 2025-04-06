@@ -8,10 +8,10 @@
             <table class="category-table">
                 <thead>
                     <tr>
-                        <th>ชื่อหมวดหมู่</th>
-                        <th>รายละเอียด</th>
-                        <th>ประเภท</th>
-                        <th>ทำกิจกรรม</th>
+                        <th style="width: 15%;">ชื่อหมวดหมู่</th>
+                        <th style="width: 60%;">รายละเอียด</th>
+                        <th style="width: 15%;">ประเภท</th>
+                        <th style="width: 10%;">ทำกิจกรรม</th>
                     </tr>
                 </thead>
                 <tbody>
