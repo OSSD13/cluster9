@@ -1,9 +1,7 @@
 @extends('layout.layoutvolunteer')
 
 @section('content')
-
-<div id="history" class="tab-content">
-    <div class="activity-area">
+<div id="history" class="activity-area">
         <h2>ข้อมูลย้อนหลังกิจกรรม</h2>
         <div class="year-filter-container">
             <label for="year-filter">ต้องการดูของปี:</label>
@@ -40,5 +38,4 @@
             </tbody>
         </table>
     </div>
-</div>
 @endsection

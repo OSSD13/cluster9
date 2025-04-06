@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\Volunteer;
 use App\Http\Middleware\ProvinceOfficer;
 use App\Http\Middleware\CentralOfficer;
+use App\Http\Controllers\ActivityController;
 
 Route::get('/', fn () => view('login'));
 Route::get('/login', fn () => view('login'));
@@ -27,10 +28,7 @@ Route::middleware([Volunteer::class,'auth'])->group(function () {
 
     Route::get('/categories/volunteer', [CategoryController::class, 'index_volunteer'])->name('vcategories');
 
-    Route::get('/history', function () {
-        $categories = \App\Models\Category::all();
-        return view('volunteer.main', compact('categories'));
-    })->name('history');
+    Route::get('/history', [ActivityController::class, 'history_volunteer'])->name('history');
 });
 
 // check สิทธิ์การเข้าถึง จังหวัด
