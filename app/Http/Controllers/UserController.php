@@ -28,11 +28,11 @@ class UserController extends Controller
             case 'V':
                 return redirect('/categories/volunteer');
             case 'P':
-                return redirect()->intended('/categories/province');
+                return redirect('/categories/province');
             case 'C':
-                return redirect()->intended('/categories/central');
+                return redirect('/categories/central');
             default:
-                return redirect()->intended('/home');
+                return redirect('/home');
         }
     }
 

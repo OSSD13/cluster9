@@ -39,6 +39,7 @@ Route::get('/pofficer', [RoleController::class, 'p'])->middleware('auth');
 Route::get('/cofficer', [RoleController::class, 'c'])->middleware('auth');
 
 Route::post('/logout', function () {
+<<<<<<< Updated upstream
     Auth::logout();
     return redirect('/login');
 })->name('logout');
@@ -64,3 +65,42 @@ Route::put('/categories/{category}', [CategoryController::class, 'update'])->nam
 
 
 
+=======
+    session()->forget('user_name');
+    return redirect('/login');
+})->name('logout');
+
+// check สิทธิ์การเข้าถึง อาสาสมัคร
+Route::middleware([Volunteer::class,'auth'])->group(function () {
+    Route::get('/volunteer', [RoleController::class, 'v'])->name('volunteer.home');
+    Route::get('/homevolunteer', [RoleController::class, 'v']);
+    Route::get('/categories/volunteer', [CategoryController::class, 'index_volunteer'])->name('vcategories');
+    Route::get('/history', function () {
+        $categories = \App\Models\Category::all();
+        return view('volunteer.main', compact('categories'));
+    })->name('history');
+});
+
+// check สิทธิ์การเข้าถึง จังหวัด
+Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
+    Route::get('/pofficer', [RoleController::class, 'p'])->name('pofficer.home');
+    Route::get('/homeprovince', [RoleController::class, 'p']);
+    Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
+});
+
+
+// check สิทธิ์การเข้าถึง ส่วนกลาง
+Route::middleware([CentralOfficer::class,'auth'])->group(function () {
+    Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
+    Route::get('/homecentral', [RoleController::class, 'c']);
+    Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
+});
+
+// check สิทธิ์การ login
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user-data', [UserController::class, 'getUserData']);
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+});
+>>>>>>> Stashed changes
