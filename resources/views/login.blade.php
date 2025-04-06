@@ -78,7 +78,7 @@
             <h1 class="fs-4 mb-0">บันทึกกิจกรรมจิตอาสา</h1>
         </div>
         <div class="form-container">
-            <form action="{{ route('login') }}" method="POST">
+            <form action="{{ url('login') }}" method="POST">
                 @csrf
                 <h4 class="mb-4 text-center">ลงชื่อเข้าใช้งาน</h4>
                 @if ($errors->any())
