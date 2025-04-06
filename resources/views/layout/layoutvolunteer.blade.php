@@ -109,6 +109,7 @@
         .category-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
 
         .category-table th,
@@ -363,22 +364,6 @@
 
         .tab-content.active {
             display: block;
-        }
-
-        .year-filter-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .year-filter-container label {
-            margin-right: 10px;
-        }
-
-        .year-filter-container select {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
         }
 
         .submit-all-activities-area {
