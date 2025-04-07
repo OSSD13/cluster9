@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -31,7 +33,15 @@ class CategoryController extends Controller
     public function index_volunteer()
     {
         $categories = Category::all();
-        return view('volunteer.main', compact('categories'));
+        $activities = Activity::all();
+        return view('volunteer.main', compact('categories','activities'));// ตัวอย่างการคืนค่า view
+    }
+
+    //ดึงและส่งค่า Category สำหรับ Volunteer
+    //ใช้ใน VolunteerController
+    public function getVolunteerCategory()
+    {
+        return $categories = Category::all();
     }
 
     public function destroy(Category $category)
