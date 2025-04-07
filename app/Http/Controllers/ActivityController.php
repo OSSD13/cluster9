@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
-{   
-    //ดึงและส่งค่า Activity ของจิตอาสา
-    //ใช้ใน VolunteerController
-    function getVolunteerActivity(){
-        return $activities = Activity::all();
+{
+    public function addActivity(Request $req){
+
+        $activity = new Activity();
+        $activity->activity_name = $req->activity_name;
+        $activity->activity_description = $req->activity_description;
+        $activity->activity_date = $req->activity_date;
+        $activity->categories_id = $req->category_id;
+        $activity->user_id = auth()->id();
+        $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
+
+       
     }
+
+    
 }

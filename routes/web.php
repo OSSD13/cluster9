@@ -9,9 +9,10 @@ use App\Http\Middleware\Volunteer;
 use App\Http\Middleware\ProvinceOfficer;
 use App\Http\Middleware\CentralOfficer;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\ActivityController;
 
-Route::get('/', fn () => view('login'));
-Route::get('/login', fn () => view('login'));
+Route::get('/', fn() => view('login'));
+Route::get('/login', fn() => view('login'));
 
 Route::post('/login', [UserController::class, 'login'])->name('login');
 
@@ -22,7 +23,7 @@ Route::post('/logout', function () {
 
 // check สิทธิ์การเข้าถึง อาสาสมัคร
 
-Route::middleware([Volunteer::class,'auth'])->group(function () {
+Route::middleware([Volunteer::class, 'auth'])->group(function () {
     Route::get('/volunteer', [RoleController::class, 'v'])->name('volunteer.home');
     Route::get('/homevolunteer', [RoleController::class, 'v']);
 
@@ -32,10 +33,15 @@ Route::middleware([Volunteer::class,'auth'])->group(function () {
         $categories = \App\Models\Category::all();
         return view('volunteer.main', compact('categories'));
     })->name('history');
+    //เพิ่มใหม่
+    Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
 });
+//เพิ่มใหม่
+Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
+
 
 // check สิทธิ์การเข้าถึง จังหวัด
-Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
+Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/pofficer', [RoleController::class, 'p'])->name('pofficer.home');
     Route::get('/homeprovince', [RoleController::class, 'p']);
 
@@ -44,7 +50,7 @@ Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
 
 
 // check สิทธิ์การเข้าถึง ส่วนกลาง
-Route::middleware([CentralOfficer::class,'auth'])->group(function () {
+Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
     Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
     Route::get('/homecentral', [RoleController::class, 'c']);
 
