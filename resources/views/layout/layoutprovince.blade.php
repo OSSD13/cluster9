@@ -179,7 +179,7 @@
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
             <a href="#" class="menu-item">
-                <i class="fas fa-chart-bar"></i> รายงานกิจกรรม
+                <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar"></i> Dashboard

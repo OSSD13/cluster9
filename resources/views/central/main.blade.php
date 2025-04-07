@@ -1,6 +1,17 @@
 @extends('layout.layoutcentral')
 
 @section('content')
+<style>
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 5px;
+    }
+</style>
 
 <div class="category-area">
     <div style="margin-bottom: 20px;">
@@ -9,18 +20,33 @@
             @csrf
             <div class="form-group">
                 <label for="category_name">ชื่อหมวดหมู่:</label>
-                <input type="text" id="category_name" name="category_name" class="form-control" required>
+                <input type="text" id="category_name" name="category_name" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                @error('category_name')
+                    <div class="invalid-feedback">
+                        กรุณากรอกชื่อหมวดหมู่
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="category_description">รายละเอียด:</label>
-                <textarea id="category_description" name="category_description" class="form-control" required></textarea>
+                <textarea id="category_description" name="category_description" class="form-control {{ $errors->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
+                @error('category_description')
+                    <div class="invalid-feedback">
+                        กรุณากรอกรายละเอียดหมวดหมู่
+                    </div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="category_mandatory">สถานะ:</label>
-                <select id="category_mandatory" name="category_mandatory" class="form-control" required>
-                    <option value="1">บังคับ</option>
-                    <option value="0">ไม่บังคับ</option>
+                <select id="category_mandatory" name="category_mandatory" class="form-control {{ $errors->has('category_mandatory') ? 'is-invalid' : '' }}">
+                    <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
+                    <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
                 </select>
+                @error('category_mandatory')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-success">เพิ่มหมวดหมู่</button>
         </form>
@@ -82,11 +108,21 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="edit_category_name">ชื่อหมวดหมู่:</label>
-                        <input type="text" id="edit_category_name" name="category_name" class="form-control" required>
+                        <input type="text" id="edit_category_name" name="category_name" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                        @error('category_name')
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อหมวดหมู่
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="edit_category_description">รายละเอียด:</label>
-                        <textarea id="edit_category_description" name="category_description" class="form-control" required></textarea>
+                        <textarea id="edit_category_description" name="category_description" class="form-control {{ $errors->has('category-description') ? 'is-invalid' : ''}}">{{old('category_description')}}</textarea>
+                        @error('category_description')
+                            <div class="invalid-feedback">
+                                กรุณากรอกรายละเอียดหมวดหมู่
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="edit_category_mandatory">ประเภท:</label>

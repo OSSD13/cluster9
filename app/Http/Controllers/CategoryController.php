@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function index_report()
+    {
+        return view('central.report');
+    }
     public function index_central()
     {
         $categories = Category::all();
@@ -35,6 +39,13 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        // ตรวจสอบ Validation ข้อมูลห้ามว่าง
+        $request->validate([
+            'category_name' => 'required',
+            'category_description' => 'required',
+            'category_mandatory' => 'required|boolean',
+        ]);
+
         $data = $request->all();
         $data['users_id'] = Auth::id(); // กำหนด users_id เป็น ID ของผู้ใช้ปัจจุบัน
         Category::create($data);
@@ -43,6 +54,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
+        // ตรวจสอบ Validation ข้อมูลห้ามว่าง
         $request->validate([
             'category_name' => 'required',
             'category_description' => 'required',

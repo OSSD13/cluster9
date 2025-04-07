@@ -243,11 +243,11 @@
             <a href="#" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-chart-bar"></i> รายงานกิจกรรม
+            <a href="#" class="menu-item" onclick="showReport()">
+                <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
             <a href="#" class="menu-item">
-                <i class="fas fa-chart-bar"></i> Dashboard
+                <i class="far fa-chart-bar"></i> Dashboard
             </a>
 
         </div>
@@ -270,6 +270,10 @@
         </div>
     </div>
     <script>
+        function showReport() {
+            window.location.href = "{{ route('report') }}";
+        }
+
         function showCategories() {
             window.location.href = "{{ route('ccategories') }}";
         }

@@ -42,6 +42,8 @@ Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
 });
 
+Route::get('/report/central', [CategoryController::class, 'index_report'])->name('creport');
+Route::post('/report/central', [CategoryController::class, 'index_report'])->name('report');
 
 // check สิทธิ์การเข้าถึง ส่วนกลาง
 Route::middleware([CentralOfficer::class,'auth'])->group(function () {
