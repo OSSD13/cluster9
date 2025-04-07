@@ -19,55 +19,44 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($categories as $category)
             <tr>
-                <td>ส่งเสริมการรักชุมชน </td>
-                <td>กิจกรรมส่งเสริมวัฒนธรรมพื้นบ้าน</td>
-                <td>2023-10-26</td>
-                <td>
-                    <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>
-                </td>
-            </tr>
-            <tr>
-                <td>อาสาสมัครสอนหนังสือ </td>
-                <td>กิจกรรมส่งเสริมภาษาไทยพื้นบ้าน</td>
-                <td>2023-10-25</td>
-                @foreach ($categories as $category)
+                <td>{{ $category->category_name }}</td>
+                <td>{{ $category->category_activityName }}</td>
+                <td>{{ $category->category_creatDate }}</td>
+
                 <td style="text-align: center;">
                     <button class="view-details-button" id="activity-{{ $category->category_id }}"
                         onclick="openActivityModal({{ $category->category_id }})">ดูข้อมูลเพิ่มเติม</button>
                 </td>
-                @endforeach
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 <div id="activityModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeActivityModal()">&times;</span>
-        <h2>รายละเอียดกิจกรรม</h2>
+        <h2 style="text-align: center;">รายละเอียดกิจกรรม</h2>
         <form id="activity-form" action="" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="category_id" id="category_id">
-            <div class="form-group">
-                <label for="activity_name">ชื่อกิจกรรม:</label>
-                <input type="text" id="activity_name" name="activity_name" required>
+            <br>
+            <div class="activity-detail">
+                <p><span class="label">ชื่อกิจกรรม</span> &nbsp;กิจกรรมส่งเสริมวัฒนธรรมพื้นบ้าน</p>
+                <p><span class="label">หมวดหมู่</span> &nbsp;ส่งเสริมการรักษ์ชุมชน</p>
+                <p><span class="label">ประเภท</span> บังคับ</p>
+                <p><span class="label">รายละเอียด</span> นำวัฒนธรรมพื้นบ้านของชาวบ้านมาจัดแสดงให้แก่นักท่องเที่ยวได้เห็น</p>
+                <p><span class="label">รูปภาพ</span></p>
+                <div class="images">
+                    <div class="image-box"><img src="your-image.jpg" class="image-box" /></div>
+                    <div class="image-box"></div>
+                    <div class="image-box"></div>
+                    <div class="image-box"></div>
+                    <div class="image-box"></div>
+                </div>
+                <p style="margin-top: 20px;"><span class="label">วันที่บันทึกกิจกรรม</span> : 26 / 10 / 2566</p>
             </div>
-
-            <div class="form-group">
-                <label for="activity_description">คำอธิบาย:</label>
-                <textarea id="activity_description" name="activity_description" rows="4" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="activity_image">เพิ่มรูปภาพ (สูงสุด 5 รูป):</label>
-                <input type="file" id="activity_image" name="activity_image[]" accept="image/*" multiple
-                    onchange="previewImages(event)">
-                <div id="images-preview"></div>
-            </div>
-            <div class="form-group">
-                <label for="activity_date">วัน/เดือน/ปี ที่ทำกิจกรรม:</label>
-                <input type="date" id="activity_date" name="activity_date" required>
-            </div>
-            <button type="submit" class="submit-button">บันทึกรายงาน</button>
         </form>
     </div>
 </div>
