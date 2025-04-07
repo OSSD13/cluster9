@@ -278,7 +278,7 @@
 
         function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
             modal.style.display = "block";
-            document.getElementById('edit-form').action = '/categories/' + categoryId;
+            document.getElementById('edit-form').action = categoryId;
             document.getElementById('edit_category_name').value = categoryName;
             document.getElementById('edit_category_description').value = categoryDescription;
             document.getElementById('edit_category_mandatory').value = categoryMandatory;
