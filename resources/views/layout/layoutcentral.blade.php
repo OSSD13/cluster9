@@ -243,11 +243,11 @@
             <a href="#" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-chart-bar"></i> รายงานกิจกรรม
+            <a href="#" class="menu-item" onclick="showReport()">
+                <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
             <a href="#" class="menu-item">
-                <i class="fas fa-chart-bar"></i> Dashboard
+                <i class="far fa-chart-bar"></i> Dashboard
             </a>
 
         </div>
@@ -270,6 +270,10 @@
         </div>
     </div>
     <script>
+        function showReport() {
+            window.location.href = "{{ route('report') }}";
+        }
+
         function showCategories() {
             window.location.href = "{{ route('ccategories') }}";
         }
@@ -278,7 +282,7 @@
 
         function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
             modal.style.display = "block";
-            document.getElementById('edit-form').action = '/categories/' + categoryId;
+            document.getElementById('edit-form').action = categoryId;
             document.getElementById('edit_category_name').value = categoryName;
             document.getElementById('edit_category_description').value = categoryDescription;
             document.getElementById('edit_category_mandatory').value = categoryMandatory;

@@ -62,5 +62,7 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
+Route::get('/report/central', [CategoryController::class, 'index_report'])->name('creport');
+Route::post('/report/central', [CategoryController::class, 'index_report'])->name('report');
 
 
