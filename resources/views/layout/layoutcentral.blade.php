@@ -191,6 +191,7 @@
         .btn-success:hover {
             background-color: #45a049;
         }
+
         .edit-button {
             background-color: #007bff;
             color: white;
@@ -236,7 +237,283 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .activity-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* เพิ่ม position: relative; เพื่อให้ปุ่มจัดวางแบบ absolute ได้ */
+        }
+
+        .view-details-button {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .view-details-button:hover {
+            background-color: #0077A3;
+        }
+
+        .view-backward-button {
+            background-color: #e7e7e7;
+            color: rgb(0, 0, 0);
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold
+        }
+
+        .view-backward-button:hover {
+            background-color: #9fa0a0;
+        }
+
+
+        .activity-table td:last-child {
+            white-space: nowrap;
+            /* ป้องกันการขึ้นบรรทัดใหม่ */
+            width: 1%;
+            /* กำหนดความกว้างให้พอดีกับเนื้อหา */
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            /* เพิ่ม margin-top เพื่อเว้นระยะห่างจากปุ่ม */
+        }
+
+        .activity-table th,
+        .activity-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activity-table th {
+            background-color: #f2f2f2;
+        }
+
+        .tab-button {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .tab-button.active {
+            background-color: #ddd;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-group input[type="file"] {
+            padding: 0;
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 4 5" xmlns="http://www.w3.org/2000/svg"><path d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            padding-right: 30px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-group .image-preview {
+            width: 150px;
+            height: 150px;
+            border: 1px dashed #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .form-group .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .activity-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .activity-button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .activity-area {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* เพิ่ม position: relative; เพื่อให้ปุ่มจัดวางแบบ absolute ได้ */
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            /* เพิ่ม margin-top เพื่อเว้นระยะห่างจากปุ่ม */
+        }
+
+        .activity-table th,
+        .activity-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activity-table th {
+            background-color: #f2f2f2;
+        }
+
+        .activity-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .activity-button:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+        .activity-detail {
+            margin-top: 20px;
+        }
+
+        .activity-detail p {
+            margin: 10px 0;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .images {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-box {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 4px;
+        }
     </style>
+    </style>
+
 </head>
 
 <body>
@@ -248,13 +525,13 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="#" class="menu-item" onclick="showCategories()">
+            <a href="central" class="menu-item" onclick="showCategories()">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
             <a href="#" class="menu-item" onclick="showActivities()">
                 <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
-            <a href="#" class="menu-item">
+            <a href="historyCentral" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
             <a href="#" class="menu-item">
@@ -302,9 +579,32 @@
             modal.style.display = "none";
         }
 
+
+        function openActivityContent(categoryId) {
+            modal.style.display = "block";
+            document.getElementById('activity-form').action = '/activities/' + categoryId;
+            document.getElementById('category_id').value = categoryId;
+        }
+
+        function openActivityModal() {
+            activityModal.style.display = "block";
+        }
+
+        function closeActivityModal() {
+            activityModal.style.display = "none";
+        }
+
+        function openActivityDetailsModal(row) {
+            activityDetailsModal.style.display = "block";
+        }
+
+        function closeActivityDetailsModal() {
+            activityDetailsModal.style.display = "none";
+        }
+
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target == activityDetailsModal) {
+                activityDetailsModal.style.display = "none";
             }
         }
     </script>

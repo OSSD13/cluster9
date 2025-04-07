@@ -51,4 +51,6 @@ class CategoryController extends Controller
 
         return redirect()->back()->with('success', 'หมวดหมู่ถูกอัปเดตแล้ว');
     }
+
+    
 }
