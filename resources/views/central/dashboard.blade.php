@@ -1,4 +1,4 @@
-@extends('layout.layoutprovince')
+@extends('layout.layoutcentral')
 
 @section('content')
 

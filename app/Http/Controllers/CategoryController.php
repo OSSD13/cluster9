@@ -15,6 +15,11 @@ class CategoryController extends Controller
     {
         return view('central.report');
     }
+
+    public function check_central()
+    {
+        return view('central.checkactivity');
+    }
     public function index_central()
     {
         $categories = Category::all();

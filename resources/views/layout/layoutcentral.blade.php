@@ -234,22 +234,21 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="#" class="menu-item" onclick="showCategories()">
+            <a href="{{url('categories/central')}}" class="menu-item">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
-            <a href="#" class="menu-item" onclick="showActivities()">
+            <a href="#" class="menu-item">
                 <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
-            <a href="#" class="menu-item" onclick="showReport()">
+            <a href="{{url('/report/central')}}" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
             <a href="#" class="menu-item">
                 <i class="far fa-chart-bar"></i> Dashboard
             </a>
-
         </div>
         <div class="main-content">
             <div class="header">
@@ -270,14 +269,6 @@
         </div>
     </div>
     <script>
-        function showReport() {
-            window.location.href = "{{ route('report') }}";
-        }
-
-        function showCategories() {
-            window.location.href = "{{ route('ccategories') }}";
-        }
-
         var modal = document.getElementById("editModal");
 
         function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
