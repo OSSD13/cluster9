@@ -34,7 +34,6 @@
                                 <button class="edit-button" id="edit-{{ $category->category_id }}"
                                     style="display: none;">แก้ไข</button>
                             </td>
-                        
                         </tr>
                     @endforeach
                 </tbody>

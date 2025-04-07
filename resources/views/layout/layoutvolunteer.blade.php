@@ -386,31 +386,6 @@
             cursor: pointer;
             font-size: 16px;
         }
-        
-        .activity-detail {
-            margin-top: 20px;
-        }
-
-        .activity-detail p {
-            margin: 10px 0;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .images {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .image-box {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
-            border-radius: 4px;
-        }
     </style>
 </head>
 
@@ -433,11 +408,10 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                    {{ Auth::user()->user_nameth }}
-                </div>
+                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                        {{ Auth::user()->user_nameth }}</div>
                 @else
-                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

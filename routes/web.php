@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\Volunteer;
 use App\Http\Middleware\ProvinceOfficer;
 use App\Http\Middleware\CentralOfficer;
-use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\VolunteerController;
 
 Route::get('/', fn () => view('login'));
 Route::get('/login', fn () => view('login'));
@@ -26,9 +26,12 @@ Route::middleware([Volunteer::class,'auth'])->group(function () {
     Route::get('/volunteer', [RoleController::class, 'v'])->name('volunteer.home');
     Route::get('/homevolunteer', [RoleController::class, 'v']);
 
-    Route::get('/categories/volunteer', [CategoryController::class, 'index_volunteer'])->name('vcategories');
+    Route::get('/home/volunteer', [VolunteerController::class, 'index'])->name('home_volunteer');
 
-    Route::get('/history', [ActivityController::class, 'history_volunteer'])->name('history');
+    Route::get('/history', function () {
+        $categories = \App\Models\Category::all();
+        return view('volunteer.main', compact('categories'));
+    })->name('history');
 });
 
 // check สิทธิ์การเข้าถึง จังหวัด
@@ -39,6 +42,8 @@ Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
 });
 
+Route::get('/report/central', [CategoryController::class, 'index_report'])->name('creport');
+Route::post('/report/central', [CategoryController::class, 'index_report'])->name('report');
 
 // check สิทธิ์การเข้าถึง ส่วนกลาง
 Route::middleware([CentralOfficer::class,'auth'])->group(function () {
