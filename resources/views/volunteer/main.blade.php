@@ -60,18 +60,7 @@
             <tbody>
                 @foreach ($activities as $activity)
                 <tr>
-                    <td> @foreach ($categories as $category)
-                            {{-- เทียบ ID ของ Category ทั้งสองตาราง เพื่อหาชื่อหมวดหมู่ของกิจกกรม --}}
-                            @if($activity->categories_id == $category->category_id)
-                                {{-- ถ้า ID ตรงกัน จะแสดงชื่อหมวดหมู่ --}}
-                                {{ $category->category_name }}
-                                <?php break; ?>
-                            @else
-                                ไม่พบหมวดหมู่นี้
-                                <?php break; ?>
-                            @endif
-                        @endforeach
-                    </td>
+                    <td>{{ $activity->category_name }}</td>
                     <td>{{ $activity->activity_name }}</td>
                     <td>{{ $activity->activity_status }}</td>
                     <td>
