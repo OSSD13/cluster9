@@ -27,11 +27,11 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     Route::get('/homevolunteer', [RoleController::class, 'v']);
     Route::get('/categories/volunteer', [CategoryController::class, 'index_volunteer'])->name('vcategories');
     Route::get('/home/volunteer', [VolunteerController::class, 'index'])->name('home_volunteer');
-    Route::get('/history', [ActivityController::class, 'history_volunteer'])->name('history');
 
-    // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นอาสาสมัครและผ่านการ Login
-    Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
-    Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
+    Route::get('/history', function () {
+        $categories = \App\Models\Category::all();
+        return view('volunteer.main', compact('categories'));
+    })->name('history');
 });
 
 // กลุ่ม Route สำหรับ เจ้าหน้าที่ระดับจังหวัด
@@ -39,16 +39,11 @@ Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/pofficer', [RoleController::class, 'p'])->name('pofficer.home');
     Route::get('/homeprovince', [RoleController::class, 'p']);
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
-    Route::get('/categories/history', [ActivityController::class, 'history'])->name('history');
-    Route::get('/categories/vhd001', [ActivityController::class, 'detailProvince'])->name('detailPorvince');
-
-
-    // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ระดับจังหวัดและผ่านการ Login
-    Route::get('/categories/vhd001', [ActivityController::class, 'detailProvince'])->name('detailPorvince');
 });
 
-// กลุ่ม Route สำหรับ เจ้าหน้าที่ส่วนกลาง
-Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
+
+// check สิทธิ์การเข้าถึง ส่วนกลาง
+Route::middleware([CentralOfficer::class,'auth'])->group(function () {
     Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
     Route::get('/homecentral', [RoleController::class, 'c']);
     Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
