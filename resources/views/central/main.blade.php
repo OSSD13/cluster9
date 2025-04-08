@@ -11,6 +11,17 @@
         font-size: 0.875em;
         margin-top: 5px;
     }
+
+    .action-buttons button {
+        margin-right: 5px;
+    }
+
+    .disabled-button {
+        background-color: #929292 !important;
+        color: #ffffff !important;
+        border: 1px solid #8b8686 !important;
+        cursor: not-allowed !important;
+    }
 </style>
 
 <div class="category-area">
@@ -61,10 +72,10 @@
             <table class="category-table">
                 <thead>
                     <tr>
-                        <th style="width: 15%;">ชื่อหมวดหมู่</th>
-                        <th style="width: 60%;">รายละเอียด</th>
+                        <th style="width: 20%;">ชื่อหมวดหมู่</th>
+                        <th style="width: 50%;">รายละเอียด</th>
                         <th style="width: 15%;">ประเภท</th>
-                        <th style="width: 10%;">การจัดการ</th>
+                        <th style="width: 15%; text-align: center;">การจัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,15 +94,17 @@
                                     </span>
                                 @endif
                             </td>
-                            <td style="text-align: center;">
-                                <button class="edit-button"
-                                    onclick="openEditModal({{ $category->category_id }}, '{{ $category->category_name }}', '{{ $category->category_description }}', {{ $category->category_mandatory }})">แก้ไข</button>
+                            <td style="text-align: center;" class="action-buttons">
+                                <button class="edit-button {{ $category->is_referenced == 0 ? 'disabled-button' : '' }}"
+                                    onclick="openEditModal({{ $category->category_id }}, '{{ $category->category_name }}', '{{ $category->category_description }}', {{ $category->category_mandatory }})"
+                                    {{ $category->is_referenced == 0 ? 'disabled' : '' }}>แก้ไข</button>
                                 <form action="{{ route('categories.destroy', $category->category_id) }}"
                                     method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?')">ลบ</button>
+                                    <button type="submit" class="btn btn-danger btn-sm {{ $category->is_referenced == 0 ? 'disabled-button' : '' }}"
+                                        onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่นี้?')"
+                                        {{ $category->is_referenced == 0 ? 'disabled' : '' }}>ลบ</button>
                                 </form>
                             </td>
                         </tr>

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
-
 
 class CategoryController extends Controller
 {
@@ -24,7 +22,11 @@ class CategoryController extends Controller
     }
     public function index_central()
     {
-        $categories = Category::all();
+        $categories = Category::all()->map(function ($category) {
+            $isReferenced = $category->isReferenced() ? 0 : 1;
+            $category->is_referenced = $isReferenced; // เพิ่มตัวแปรใหม่เข้าไปใน Object Category
+            return $category;
+        });
         return view('central.main', compact('categories'));
     }
     public function index_province()
@@ -48,6 +50,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if ($category->isReferenced()) {
+            return redirect()->back()->with('error', 'ไม่สามารถลบหมวดหมู่นี้ได้เนื่องจากมีการใช้งานอยู่ในกิจกรรมแล้ว');
+        }
+
         $category->delete();
         return redirect()->back()->with('success', 'ลบหมวดหมู่สำเร็จ');
     }

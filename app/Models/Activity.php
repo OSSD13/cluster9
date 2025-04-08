@@ -22,4 +22,12 @@ class Activity extends Model
         'categories_id',
         'user_id',
     ];
+
+    /**
+     * Get the category that owns the activity.
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id', 'category_id');
+    }
 }
