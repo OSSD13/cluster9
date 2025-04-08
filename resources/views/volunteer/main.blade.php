@@ -45,13 +45,10 @@
 <div class="activity-area">
     <h2>รายการกิจกรรม</h2>
     <div class="submit-all-activities-area">
-        <button class="submit-button"
-            onclick="sentActivityModal()">
+        <button class="submit-button" onclick="sentActivityModal()">
             ส่งชุดกิจกรรมทั้งหมด
         </button>
     </div>
-
-
 
     <table class="activity-table" id="added-activities-table">
         <thead>
@@ -82,7 +79,6 @@
     <div class="modal-content">
         <span class="close" onclick="closeActivityModal()">&times;</span>
         <h2>บันทึกกิจกรรม</h2>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <form id="activity-form" action="" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="category_id" id="category_id">
@@ -97,7 +93,8 @@
             </div>
             <div class="form-group">
                 <label for="activity_image">เพิ่มรูปภาพ (สูงสุด 5 รูป):</label>
-                <input type="file" id="activity_image" name="activity_image[]" accept="image/*" multiple>
+                <input type="file" id="activity_image" name="activity_image[]" accept="image/*" multiple
+                    onchange="previewImages(event)">
                 <div id="images-preview"></div>
             </div>
             <div class="form-group">

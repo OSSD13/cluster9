@@ -378,41 +378,41 @@
         margin-right: 10px;
     }
 
-        .submit-all-activities-area .submit-button {
-            background-color: #7d39d6;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .submit-all-activities-area .submit-button {
+        background-color: #7d39d6;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-        .activity-detail {
-            margin-top: 20px;
-        }
+    .activity-detail {
+        margin-top: 20px;
+    }
 
-        .activity-detail p {
-            margin: 10px 0;
-        }
+    .activity-detail p {
+        margin: 10px 0;
+    }
 
-        .label {
-            font-weight: bold;
-        }
+    .label {
+        font-weight: bold;
+    }
 
-        .images {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
+    .images {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-        .image-box {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
-            border-radius: 4px;
-        }
-    
+    .image-box {
+        width: 80px;
+        height: 80px;
+        background-color: #ddd;
+        border-radius: 4px;
+    }
+
     .year-filter-container select {
         padding: 8px;
         border-radius: 4px;
@@ -659,6 +659,7 @@
             });
         }
 
+
         function editActivity(button) {
             var row = button.closest("tr");
             var category = row.cells[0].textContent.trim();
@@ -693,8 +694,7 @@
                 openActivityDetailsModal(row);
             }
         });
-
-        
     </script>
 </body>
+
 </html>
