@@ -79,12 +79,5 @@ class ActivityController extends Controller
         return view('central/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
 
-    public function destroy($id)
-    {
-        $activity = Activity::findOrFail($id);
-        $activity->delete();
-
-        return redirect()->back()->with('success', 'กิจกรรมถูกลบเรียบร้อยแล้ว');
-    }
 
 }
