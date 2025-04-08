@@ -693,7 +693,8 @@
                 openActivityDetailsModal(row);
             }
         });
+
+        
     </script>
 </body>
-
 </html>
