@@ -83,7 +83,7 @@
         <span class="close" onclick="closeActivityModal()">&times;</span>
         <h2>บันทึกกิจกรรม</h2>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <form id="activity-form" action="{{ route('activity.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="activity-form" action="" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="category_id" id="category_id">
             <div class="form-group">
@@ -106,29 +106,6 @@
             </div>
             <button type="submit" class="submit-button">บันทึกรายงาน</button>
         </form>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <script>
-            @if(session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'สำเร็จ',
-                text: '{{ session('
-                success ') }}',
-            });
-            @endif
-
-            @if(session('error'))
-            Swal.fire({
-                icon: 'error',
-                title: 'เกิดข้อผิดพลาด',
-                text: '{{ session('
-                error ') }}',
-            });
-            @endif
-        </script>
-
-
     </div>
 </div>
 <div id="activityDetailsModal" class="modal">
@@ -140,31 +117,3 @@
     </div>
 </div>
 @endsection
-
-<?php
-// เริ่มต้น session เพื่อใช้ส่งข้อความไปยัง JavaScript
-session_start();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $activity_name = $_POST['activity_name'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $activity_date = $_POST['activity_date'] ?? '';
-    $images = $_FILES['images'];
-
-    // ตรวจสอบว่าใส่ครบไหม
-    if (empty($activity_name) || empty($description) || empty($activity_date)) {
-        $_SESSION['error'] = "กรุณากรอกข้อมูลให้ครบถ้วน";
-    }
-    // ตรวจสอบว่าเลือกรูปเกิน 5 หรือเปล่า
-    else if (count(array_filter($images['name'])) > 5) {
-        $_SESSION['error'] = "ไม่สามารถเลือกรูปภาพเกิน 5 รูปได้";
-    } else {
-        $_SESSION['success'] = "บันทึกข้อมูลเรียบร้อยแล้ว!";
-        // โค้ดบันทึกไฟล์หรือข้อมูลลงฐานข้อมูลจะอยู่ตรงนี้
-    }
-
-    // รีเฟรชหน้าหลังจาก POST เพื่อให้ SweetAlert ทำงาน
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-?>
