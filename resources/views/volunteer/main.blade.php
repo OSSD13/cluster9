@@ -45,30 +45,36 @@
 <div class="activity-area">
     <h2>รายการกิจกรรม</h2>
     <div class="submit-all-activities-area">
-        <button class="submit-button">ส่งชุดกิจกรรมทั้งหมด</button>
+        <button class="submit-button" id="activity-{{ $category->category_id }}"
+            onclick="sentActivityModal()">
+            ส่งชุดกิจกรรมทั้งหมด
+        </button>
     </div>
+
+
+
     <table class="activity-table" id="added-activities-table">
         <thead>
-                <tr>
-                    <th>หมวดหมู่</th>
-                    <th>ชื่อกิจกรรม</th>
-                    <th>สถานะ</th>
-                    <th>จัดการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($activities as $activity)
-                <tr>
-                    <td>{{ $activity->category_name }}</td>
-                    <td>{{ $activity->activity_name }}</td>
-                    <td>{{ $activity->activity_status }}</td>
+            <tr>
+                <th>หมวดหมู่</th>
+                <th>ชื่อกิจกรรม</th>
+                <th>สถานะ</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($activities as $activity)
+            <tr>
+                <td>{{ $activity->category_name }}</td>
+                <td>{{ $activity->activity_name }}</td>
+                <td>{{ $activity->activity_status }}</td>
                 <td>
                     <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
                     <button class="logout-button" onclick="deleteActivity(this)"> ลบ</button>
                     <button class="view-details-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                 </td>
-                </tr>
-                @endforeach
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
@@ -110,4 +116,5 @@
         </div>
     </div>
 </div>
+
 @endsection
