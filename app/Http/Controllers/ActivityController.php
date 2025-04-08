@@ -48,12 +48,20 @@ class ActivityController extends Controller
 
 
     }
-    public function detailProvince()
+    public function historyDetailProvince()
     {
         // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
         // $activities = Activity::where(...)->get(); // สมมุติ
 
         return view('province/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function checkDetailProvince()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('province/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
 
     public function viewSheet()
@@ -71,12 +79,32 @@ class ActivityController extends Controller
         return view('central/historySheet'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
 
-    public function detailCentral()
+    public function historyDetailCentral()
     {
         // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
         // $activities = Activity::where(...)->get(); // สมมุติ
 
         return view('central/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function checkDetailCentral()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('central/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function checkByProvince() {
+        return view('province/checkActivityProvince');
+    }
+
+    public function checkByCentral() {
+        return view('central/checkActivityCentral');
+    }
+
+    public function checkSheet() {
+        return view('central/checkSheetCentral');
     }
 
 

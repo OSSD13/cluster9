@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="history" class="activity-area">
-        <a href="historyCentral"><button class="view-backward-button">◀ ย้อนกลับ</button></a>
+        <a href="{{ url('/categories/historyCentral')}}"><button class="view-backward-button">◀ ย้อนกลับ</button></a>
         <h2 style="margin-top: 1%">ข้อมูลย้อนหลังกิจกรรม จังหวัดชลบุรี</h2>
 
         <div class="year-filter-container">
