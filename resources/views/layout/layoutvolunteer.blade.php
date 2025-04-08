@@ -580,7 +580,7 @@
                 status: randomStatus
             });
         }
-
+        /*
         document.getElementById('activity-form').addEventListener('submit', function(event) {
             event.preventDefault();
             var categoryId = document.getElementById('category_id').value;
@@ -591,6 +591,7 @@
             addActivityToTable(categoryId, categoryName, activityName, activityDescription);
             closeActivityModal();
         });
+        */
         
 
 

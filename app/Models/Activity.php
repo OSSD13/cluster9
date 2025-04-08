@@ -20,6 +20,9 @@ class Activity extends Model
         'activity_status',
         'activity_report_date',
         'activity_permission',
+        'activity_create_at',
+        'activity_update_at',
+        'activity_year',
         'categories_id',
         'users_id',
     ];

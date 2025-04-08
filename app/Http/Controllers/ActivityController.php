@@ -40,21 +40,24 @@ class ActivityController extends Controller
         return view('central.history');
     }
     //เพิ่มกิจกรรม
-    public function addActivity(Request $req){
+    public function addActivity(Request $req, $cat_id){
+
         $req->validate([
             'activity_name' => 'required|string|max:255',
             'activity_description' => 'required|string',
             'activity_date' => 'required|date',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:var_categories,category_id',
         ]);
 
-        
         $activity = new Activity();
         $activity->activity_name = $req->input('activity_name');
         $activity->activity_description = $req->input('activity_description');
         $activity->activity_date = $req->input('activity_date');
-        $activity->categories_id = $req->input('category_id');
-       
+        $activity->categories_id = $cat_id;
+        $activity->activity_report_date = now()->toDateTimeString();
+        $activity->activity_create_at = now()->toDateTimeString();
+        $activity->activity_update_at = now()->toDateTimeString();
+        $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
         $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
         
@@ -62,10 +65,10 @@ class ActivityController extends Controller
         //$data = $req->all();
         //$data['users_id'] = Auth::id();
         //Activity::create($data);
+        //$activity->save();
         $activity->save();
 
         return redirect()->back()->with('success', 'เพิ่มกิจกรรมเรียบร้อยแล้ว!');
-
 
     }
 //chatเพิ่มมา

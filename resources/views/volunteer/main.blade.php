@@ -79,7 +79,7 @@
     <div class="modal-content">
     <span class="close" onclick="closeActivityModal()">&times;</span>
         <h2>บันทึกกิจกรรม</h2>
-        <form id="activity-form" action="{{ url('activities') }}" method="POST" enctype="multipart/form-data" >
+        <form id="activity-form" action="{{ url('/activities') }}" method="POST" enctype="multipart/form-data" >
             @csrf
             <input type="text" name="category_id" id="category_id" hidden>
             <div class="form-group">

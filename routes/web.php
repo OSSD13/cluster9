@@ -37,7 +37,8 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     //เพิ่มใหม่
     //Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
     //ใช้อยู่
-    Route::post('/activities', [ActivityController::class, 'addActivity'])->name('activities.addActivity');
+    Route::post('/activities/{cat_id}', [ActivityController::class, 'addActivity'])->name('activities.addActivity');
+   
     //แชทเพิ่ม
     Route::get('/activities', [ActivityController::class, 'index']);
     //Route::post('/activities', [ActivityController::class, 'store']);
