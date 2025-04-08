@@ -10,6 +10,7 @@ use App\Http\Middleware\ProvinceOfficer;
 use App\Http\Middleware\CentralOfficer;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ApprovalController;
 
 Route::get('/', fn () => view('login'));
 Route::get('/login', fn () => view('login'));
@@ -46,7 +47,7 @@ Route::middleware([CentralOfficer::class,'auth'])->group(function () {
     Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
     Route::get('/homecentral', [RoleController::class, 'c']);
     Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
-    Route::get('/report/central', [CategoryController::class, 'report_central'])->name('creport');
+    Route::get('/report/central', [ApprovalController::class, 'report_central'])->name('creport');
     Route::get('/history/central', [ActivityController::class, 'history_central'])->name('chistory');
     Route::get('/checkactivity/central', [CategoryController::class, 'check_central'])->name('ccheck');
     Route::get('/dashboard/central', [CategoryController::class, 'dashboard_central'])->name('cdashboard');

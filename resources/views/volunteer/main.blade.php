@@ -5,6 +5,9 @@
     <div class="category-area">
         <h2>รายการหมวดหมู่</h2>
         @if ($categories->count() > 0)
+        @php
+            $categories = $categories->sortByDesc('category_mandatory');
+        @endphp
             <table class="category-table">
                 <thead>
                     <tr>

@@ -17,12 +17,6 @@ class CategoryController extends Controller
         return view('central.dashboard');
     }
 
-    // แสดงหน้า report ของส่วนกลาง
-    public function report_central()
-    {
-        return view('central.report');
-    }
-
     //แสดงหน้า checkactivity ของส่วนกลาง
     public function check_central()
     {
