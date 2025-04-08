@@ -412,7 +412,7 @@
             background-color: #ddd;
             border-radius: 4px;
         }
-    </style>
+    
     .year-filter-container select {
         padding: 8px;
         border-radius: 4px;

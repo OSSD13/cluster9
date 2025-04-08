@@ -45,7 +45,7 @@
 <div class="activity-area">
     <h2>รายการกิจกรรม</h2>
     <div class="submit-all-activities-area">
-        <button class="submit-button" id="activity-{{ $category->category_id }}"
+        <button class="submit-button" 
             onclick="sentActivityModal()">
             ส่งชุดกิจกรรมทั้งหมด
         </button>
