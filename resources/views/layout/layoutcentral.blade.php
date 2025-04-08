@@ -237,16 +237,16 @@
             <a href="{{url('categories/central')}}" class="menu-item">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
-            <a href="#" class="menu-item">
+            <a href="{{url('/checkactivity/central')}}" class="menu-item">
                 <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
-            <a href="#" class="menu-item">
+            <a href="{{url('history/central')}}" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
             <a href="{{url('/report/central')}}" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
-            <a href="#" class="menu-item">
+            <a href="{{url('/dashboard/central')}}" class="menu-item">
                 <i class="far fa-chart-bar"></i> Dashboard
             </a>
         </div>
@@ -268,27 +268,6 @@
             </div>
         </div>
     </div>
-    <script>
-        var modal = document.getElementById("editModal");
-
-        function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
-            modal.style.display = "block";
-            document.getElementById('edit-form').action = categoryId;
-            document.getElementById('edit_category_name').value = categoryName;
-            document.getElementById('edit_category_description').value = categoryDescription;
-            document.getElementById('edit_category_mandatory').value = categoryMandatory;
-        }
-
-        function closeEditModal() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 </body>
 
 </html>

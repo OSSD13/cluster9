@@ -11,11 +11,19 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
-    public function index_report()
+    //แสดงหน้า dashboard ของส่วนกลาง
+    public function dashboard_central()
+    {
+        return view('central.dashboard');
+    }
+
+    // แสดงหน้า report ของส่วนกลาง
+    public function report_central()
     {
         return view('central.report');
     }
 
+    //แสดงหน้า checkactivity ของส่วนกลาง
     public function check_central()
     {
         return view('central.checkactivity');
@@ -53,7 +61,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // ตรวจสอบ Validation ข้อมูลห้ามว่าง
-        $request->validate([
+        $request->validateWithBag('storeCategory', [
             'category_name' => 'required',
             'category_description' => 'required',
             'category_mandatory' => 'required|boolean',
@@ -68,7 +76,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         // ตรวจสอบ Validation ข้อมูลห้ามว่าง
-        $request->validate([
+        $request->validateWithBag('updateCategory',[
             'category_name' => 'required',
             'category_description' => 'required',
             'category_mandatory' => 'required|boolean',

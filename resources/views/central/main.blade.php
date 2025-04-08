@@ -20,8 +20,8 @@
             @csrf
             <div class="form-group">
                 <label for="category_name">ชื่อหมวดหมู่:</label>
-                <input type="text" id="category_name" name="category_name" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
-                @error('category_name')
+                <input type="text" id="category_name" name="category_name" class="form-control {{ $errors->storeCategory->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                @error('category_name', 'storeCategory')
                     <div class="invalid-feedback">
                         กรุณากรอกชื่อหมวดหมู่
                     </div>
@@ -29,8 +29,8 @@
             </div>
             <div class="form-group">
                 <label for="category_description">รายละเอียด:</label>
-                <textarea id="category_description" name="category_description" class="form-control {{ $errors->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
-                @error('category_description')
+                <textarea id="category_description" name="category_description" class="form-control {{ $errors->storeCategory->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
+                @error('category_description', 'storeCategory')
                     <div class="invalid-feedback">
                         กรุณากรอกรายละเอียดหมวดหมู่
                     </div>
@@ -38,11 +38,11 @@
             </div>
             <div class="form-group">
                 <label for="category_mandatory">สถานะ:</label>
-                <select id="category_mandatory" name="category_mandatory" class="form-control {{ $errors->has('category_mandatory') ? 'is-invalid' : '' }}">
+                <select id="category_mandatory" name="category_mandatory" class="form-control {{ $errors->storeCategory->has('category_mandatory') ? 'is-invalid' : '' }}">
                     <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
                     <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
                 </select>
-                @error('category_mandatory')
+                @error('category_mandatory', 'storeCategory')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -106,10 +106,11 @@
                 <form id="edit-form" method="POST">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="category_id" value="{{ old('category_id') }}">
                     <div class="form-group">
                         <label for="edit_category_name">ชื่อหมวดหมู่:</label>
-                        <input type="text" id="edit_category_name" name="category_name" class="form-control {{ $errors->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
-                        @error('category_name')
+                        <input type="text" id="edit_category_name" name="category_name" class="form-control {{ $errors->updateCategory->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                        @error('category_name', 'updateCategory')
                             <div class="invalid-feedback">
                                 กรุณากรอกชื่อหมวดหมู่
                             </div>
@@ -117,8 +118,8 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_category_description">รายละเอียด:</label>
-                        <textarea id="edit_category_description" name="category_description" class="form-control {{ $errors->has('category-description') ? 'is-invalid' : ''}}">{{old('category_description')}}</textarea>
-                        @error('category_description')
+                        <textarea id="edit_category_description" name="category_description" class="form-control {{ $errors->updateCategory->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
+                        @error('category_description', 'updateCategory')
                             <div class="invalid-feedback">
                                 กรุณากรอกรายละเอียดหมวดหมู่
                             </div>
@@ -126,10 +127,15 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_category_mandatory">ประเภท:</label>
-                        <select id="edit_category_mandatory" name="category_mandatory" class="form-control" required>
-                            <option value="1">บังคับ</option>
-                            <option value="0">ไม่บังคับ</option>
+                        <select id="edit_category_mandatory" name="category_mandatory" class="form-control {{ $errors->updateCategory->has('category_mandatory') ? 'is-invalid' : '' }}">
+                            <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
+                            <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
                         </select>
+                        @error('category_mandatory', 'updateCategory')
+                            <div class="invalid-feedback">
+                                กรุณาเลือกประเภทหมวดหมู่
+                            </div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-success">อัปเดตหมวดหมู่</button>
                 </form>
@@ -139,5 +145,56 @@
         <p>ไม่มีข้อมูลหมวดหมู่</p>
     @endif
 </div>
+
+<script>
+    var modal = document.getElementById("editModal");
+
+    function openEditModal(categoryId, categoryName, categoryDescription, categoryMandatory) {
+        modal.style.display = "block";
+        document.getElementById('edit-form').action = `{{ route('categories.update', ':id') }}`.replace(':id', categoryId);
+        document.getElementById('edit_category_name').value = categoryName;
+        document.getElementById('edit_category_description').value = categoryDescription;
+        document.getElementById('edit_category_mandatory').value = categoryMandatory;
+    }
+
+    function closeEditModal() {
+        modal.style.display = "none";
+
+        // ลบข้อความที่กรอก
+        document.getElementById('edit_category_name').value = '';
+        document.getElementById('edit_category_description').value = '';
+        document.getElementById('edit_category_mandatory').value = '';
+
+        // ลบขอบ error แดงๆ
+        document.getElementById('edit_category_name').classList.remove('is-invalid');
+        document.getElementById('edit_category_description').classList.remove('is-invalid');
+        document.getElementById('edit_category_mandatory').classList.remove('is-invalid');
+
+        // ลบ ข้อความerror
+        const errorMessages = document.querySelectorAll('.invalid-feedback');
+        errorMessages.forEach(function (message) {
+            message.innerHTML = '';
+        });
+    }
+
+    //ปิดหน้าต่างแก้ไขหมวดหมู่
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // ถ้ามี error ในการแก้ไขหมวดหมู่ ตย.ในกรณีที่ปิดหน้าต่างแก้ไขลงไปแบบยังมีค่าว่าง มันจะดึงค่าเก่าที่เคยใส่ไว้อยู่
+    @if ($errors->updateCategory->any())
+        document.addEventListener('DOMContentLoaded', function() {
+            openEditModal(
+                {{ old('category_id') ?? 'null' }},
+                "{{ old('category_name') }}",
+                "{{ old('category_description') }}",
+                {{ old('category_mandatory') ?? 'null' }}
+            );
+        });
+    @endif
+</script>
 
 @endsection
