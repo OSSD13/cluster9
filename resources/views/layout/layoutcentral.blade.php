@@ -604,6 +604,7 @@
                 activityDetailsModal.style.display = "none";
             }
         }
+        
     </script>
 </body>
 

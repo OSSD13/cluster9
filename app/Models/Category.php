@@ -16,4 +16,22 @@ class Category extends Model
     {
         return $this->category_mandatory == 1 ? 'บังคับ' : 'ไม่บังคับ';
     }
+
+    /**
+     * Get the activities for the category.
+     */
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'categories_id', 'category_id');
+    }
+
+    /**
+     * Check if the category is referenced by any activities.
+     *
+     * @return bool
+     */
+    public function isReferenced()
+    {
+        return $this->activities()->exists();
+    }
 }
