@@ -38,8 +38,19 @@ Route::middleware([ProvinceOfficer::class,'auth'])->group(function () {
     Route::get('/homeprovince', [RoleController::class, 'p']);
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('pcategories');
 });
+Route::get('/history', function () {
+    $categories = \App\Models\Category::all(); // Fetch categories from the database
+    return view('volunteer.main', compact('categories'));
+})->name('history');
 
 
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+Route::get('/categories/history', [ActivityController::class, 'history'])->name('history');
+
+Route::get('/categories/vhd001', [ActivityController::class, 'detailProvince'])->name('detailPorvince');
 
 // check สิทธิ์การเข้าถึง ส่วนกลาง
 Route::middleware([CentralOfficer::class,'auth'])->group(function () {
@@ -62,3 +73,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
+Route::get('/categories/history/{id}', [ActivityController::class, 'show'])->name('categories.history');
+
+Route::get('/categories/historyCentral', [ActivityController::class, 'viewSheet'])->name('viewSheet');
+
+Route::get('/categories/historySheet', [ActivityController::class, 'historySheet'])->name('historySheet');
+
+Route::get('/categories/vhd001-c', [ActivityController::class, 'detailCentral'])->name('detailCentral');

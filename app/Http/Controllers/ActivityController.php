@@ -36,6 +36,44 @@ class ActivityController extends Controller
     //แสดงหน้า history ของส่วนกลาง
     public function history_central()
     {
+        //return view('province/historyProvince'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+
         return view('central.history');
     }
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+    
+
+    public function detailProvince()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('province/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function viewSheet()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('central/historyCentral'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+    public function historySheet()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('central/historySheet'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function detailCentral()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('central/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
 }
