@@ -413,6 +413,13 @@
         border-radius: 4px;
     }
 
+        .image-box {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 4px;
+        }
+
     .year-filter-container select {
         padding: 8px;
         border-radius: 4px;
@@ -638,6 +645,27 @@
             });
         }
 
+        function sentActivityModal() {
+            Swal.fire({
+                title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "ใช่, ส่งเลย",
+                denyButtonText: "ไม่ส่ง"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ส่งข้อมูล หรือเรียกฟังก์ชันส่งจริง ๆ ที่นี่
+                    Swal.fire("ส่งสำเร็จ!", "", "success");
+
+                    // ตัวอย่าง: ส่งไปยัง backend ด้วย fetch หรือ AJAX
+                    // fetch(`/submit-activity/${categoryId}`, { method: "POST" })
+
+                } else if (result.isDenied) {
+                    Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
+                }
+            });
+        }
+
         function editActivity(button) {
             var row = button.closest("tr");
             var category = row.cells[0].textContent.trim();
@@ -672,7 +700,8 @@
                 openActivityDetailsModal(row);
             }
         });
+
+
     </script>
 </body>
-
 </html>

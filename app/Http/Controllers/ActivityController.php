@@ -86,5 +86,22 @@ class ActivityController extends Controller
 
         return redirect()->back()->with('success', 'กิจกรรมถูกลบเรียบร้อยแล้ว');
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'activity_name' => 'required',
+            'activity_description' => 'required',
+            'activity_date' => 'required|date',
+            'activity_image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
+        if ($request->hasFile('activity_image') && count($request->file('activity_image')) > 5) {
+            return redirect()->back()->with('error', 'ไม่สามารถเลือกรูปภาพเกิน 5 รูปได้');
+        }
+
+        // เพิ่มโค้ดบันทึกลงฐานข้อมูลหรือจัดการรูปภาพได้ตรงนี้
+
+        return redirect()->back()->with('success', 'บันทึกข้อมูลเรียบร้อยแล้ว!');
+    }
 }
+

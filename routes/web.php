@@ -80,3 +80,4 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/some-public-page', function () {
 //     return view('public-page');
 // });
+Route::post('/activity/store', [ActivityController::class, 'store'])->name('activity.store');
