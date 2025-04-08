@@ -378,41 +378,41 @@
         margin-right: 10px;
     }
 
-        .submit-all-activities-area .submit-button {
-            background-color: #7d39d6;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+    .submit-all-activities-area .submit-button {
+        background-color: #7d39d6;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-        .activity-detail {
-            margin-top: 20px;
-        }
+    .activity-detail {
+        margin-top: 20px;
+    }
 
-        .activity-detail p {
-            margin: 10px 0;
-        }
+    .activity-detail p {
+        margin: 10px 0;
+    }
 
-        .label {
-            font-weight: bold;
-        }
+    .label {
+        font-weight: bold;
+    }
 
-        .images {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
+    .images {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-        .image-box {
-            width: 80px;
-            height: 80px;
-            background-color: #ddd;
-            border-radius: 4px;
-        }
-    </style>
+    .image-box {
+        width: 80px;
+        height: 80px;
+        background-color: #ddd;
+        border-radius: 4px;
+    }
+
     .year-filter-container select {
         padding: 8px;
         border-radius: 4px;
@@ -440,6 +440,7 @@
         font-size: 16px;
     }
 </style>
+
 </head>
 
 <body>
@@ -498,7 +499,6 @@
         var modal = document.getElementById("activityModal");
 
         function openActivityModal(categoryId) {
-
             modal.style.display = "block";
             document.getElementById('activity-form').action = '/activities/' + categoryId;
             document.getElementById('category_id').value = categoryId;
@@ -548,7 +548,7 @@
             document.getElementById('edit-' + categoryId).style.display = "inline-block";
         }
         var addedActivities = [];
-
+        //เพิ่มกิจกรรม
         function addActivityToTable(categoryId, categoryName, activityName, activityDescription) {
             var table = document.getElementById('added-activities-table').getElementsByTagName('tbody')[0];
             var newRow = table.insertRow();
@@ -559,7 +559,9 @@
 
             cell1.innerHTML = categoryName;
             cell2.innerHTML = activityName;
-            cell2.innerHTML = activityDescription;
+            cell3.innerHTML = activityDescription;
+            cell4.innerHTML = randomStatus;
+
 
             // สร้างสถานะแบบ random
             var statuses = ["รอส่วนภูมิภาคตรวจสอบ", "รอส่วนกลางตรวจสอบ", "รอแก้ไข", "ผ่านการอนุมัติ"];
@@ -568,6 +570,8 @@
 
             cell4.innerHTML =
                 '<button class="edit-button">แก้ไข</button> <button class="logout-button">ลบ</button> <button class="view-details-button">ดูข้อมูลเพิ่มเติม</button>';
+
+            
 
             addedActivities.push({
                 categoryId: categoryId,
@@ -587,6 +591,8 @@
             addActivityToTable(categoryId, categoryName, activityName, activityDescription);
             closeActivityModal();
         });
+        
+
 
         var activityDetailsModal = document.getElementById("activityDetailsModal");
 
@@ -614,7 +620,7 @@
                 activityDetailsModal.style.display = "none";
             }
         }
-
+        //ลบกิจกรรม
         function deleteActivity(button) {
             Swal.fire({
                 title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่",
@@ -637,7 +643,7 @@
                 }
             });
         }
-
+        //แก้ไขกิจกรรม
         function editActivity(button) {
             var row = button.closest("tr");
             var category = row.cells[0].textContent.trim();

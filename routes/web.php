@@ -35,11 +35,14 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
         return view('volunteer.main', compact('categories'));
     })->name('history');
     //เพิ่มใหม่
-    Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
-});
-//เพิ่มใหม่
-Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
+    //Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
+    //ใช้อยู่
+    Route::post('/activities', [ActivityController::class, 'addActivity'])->name('activities.addActivity');
+    //แชทเพิ่ม
+    Route::get('/activities', [ActivityController::class, 'index']);
+    //Route::post('/activities', [ActivityController::class, 'store']);
 
+});
 
 // check สิทธิ์การเข้าถึง จังหวัด
 Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {

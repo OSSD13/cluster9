@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Category;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -38,18 +39,65 @@ class ActivityController extends Controller
     {
         return view('central.history');
     }
+    //เพิ่มกิจกรรม
     public function addActivity(Request $req){
+        $req->validate([
+            'activity_name' => 'required|string|max:255',
+            'activity_description' => 'required|string',
+            'activity_date' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
+        
         $activity = new Activity();
-        $activity->activity_name = $req->activity_name;
-        $activity->activity_description = $req->activity_description;
-        $activity->activity_date = $req->activity_date;
-        $activity->categories_id = $req->category_id;
-        $activity->user_id = auth()->id();
+        $activity->activity_name = $req->input('activity_name');
+        $activity->activity_description = $req->input('activity_description');
+        $activity->activity_date = $req->input('activity_date');
+        $activity->categories_id = $req->input('category_id');
+       
+        $activity->users_id = auth()->id();
         $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
+        
+
+        //$data = $req->all();
+        //$data['users_id'] = Auth::id();
+        //Activity::create($data);
+        $activity->save();
+
+        return redirect()->back()->with('success', 'เพิ่มกิจกรรมเรียบร้อยแล้ว!');
 
 
     }
+//chatเพิ่มมา
+    public function index()
+    {
+        return response()->json(Activity::all());
+    }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|integer',
+            'activity_name' => 'required|string',
+            'activity_description' => 'required|string',
+            'activity_images.*' => 'image|mimes:jpg,jpeg,png'
+        ]);
+
+        $imagePaths = [];
+        if ($request->hasFile('activity_images')) {
+            foreach ($request->file('activity_images') as $image) {
+                $imagePaths[] = $image->store('activity_images', 'public');
+            }
+        }
+
+        $activity = Activity::create([
+            'category_id' => $request->category_id,
+            'activity_name' => $request->activity_name,
+            'activity_description' => $request->activity_description,
+            'activity_images' => json_encode($imagePaths),
+        ]);
+
+        return response()->json($activity, 201);
+    }
 
 }

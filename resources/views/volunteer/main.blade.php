@@ -5,6 +5,9 @@
 <div class="category-area">
     <h2>รายการหมวดหมู่</h2>
     @if ($categories->count() > 0)
+        @php
+            $categories = $categories->sortByDesc('category_mandatory');
+        @endphp
     <table class="category-table">
         <thead>
             <tr>
@@ -74,14 +77,14 @@
 </div>
 <div id="activityModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeActivityModal()">&times;</span>
+    <span class="close" onclick="closeActivityModal()">&times;</span>
         <h2>บันทึกกิจกรรม</h2>
-        <form id="activity-form" action="" method="POST" enctype="multipart/form-data">
+        <form id="activity-form" action="{{ url('activities') }}" method="POST" enctype="multipart/form-data" >
             @csrf
-            <input type="hidden" name="category_id" id="category_id">
+            <input type="text" name="category_id" id="category_id" hidden>
             <div class="form-group">
                 <label for="activity_name">ชื่อกิจกรรม:</label>
-                <input type="text" id="activity_name" name="activity_name" required>
+                <input type="text" id="activity_name" name="activity_name" >
             </div>
 
             <div class="form-group">
