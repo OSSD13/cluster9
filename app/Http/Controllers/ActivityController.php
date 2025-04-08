@@ -38,4 +38,18 @@ class ActivityController extends Controller
     {
         return view('central.history');
     }
+    public function addActivity(Request $req){
+
+        $activity = new Activity();
+        $activity->activity_name = $req->activity_name;
+        $activity->activity_description = $req->activity_description;
+        $activity->activity_date = $req->activity_date;
+        $activity->categories_id = $req->category_id;
+        $activity->user_id = auth()->id();
+        $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
+
+
+    }
+
+
 }
