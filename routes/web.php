@@ -10,6 +10,7 @@ use App\Http\Middleware\ProvinceOfficer;
 use App\Http\Middleware\CentralOfficer;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ApprovalController;
 
 Route::get('/', fn () => view('login'));
 Route::get('/login', fn () => view('login'));
@@ -48,6 +49,13 @@ Route::get('/report/central', [CategoryController::class, 'index_report'])->name
 Route::middleware([CentralOfficer::class,'auth'])->group(function () {
     Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
     Route::get('/homecentral', [RoleController::class, 'c']);
+    Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
+    Route::get('/report/central', [ApprovalController::class, 'report_central'])->name('creport');
+    Route::get('/checkactivity/central', [CategoryController::class, 'check_central'])->name('ccheck');
+    Route::get('/dashboard/central', [CategoryController::class, 'dashboard_central'])->name('cdashboard');
+    Route::get('/categories/historyCentral', [ActivityController::class, 'viewSheet'])->name('viewSheet');
+    Route::get('/categories/historySheet', [ActivityController::class, 'historySheet'])->name('historySheet');
+    Route::get('/categories/vhd001-c', [ActivityController::class, 'detailCentral'])->name('detailCentral');
 
     Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
 });
