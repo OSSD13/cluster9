@@ -64,7 +64,11 @@
                     <td>{{ $activity->activity_status }}</td>
                 <td>
                     <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
-                    <button class="logout-button" onclick="deleteActivity(this)"> ลบ</button>
+                    <form action="{{ route('activity.delete', $activity->id ?? $activity->activity_id) }}" method="POST" style="display: inline;" id="delete-form-{{ $activity->id ?? $activity->activity_id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="logout-button" onclick="confirmDelete({{ $activity->id ?? $activity->activity_id }})"> ลบ</button>
+                    </form>
                     <button class="view-details-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                 </td>
                 </tr>
@@ -110,4 +114,11 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete(activityId) {
+        if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?')) {
+            document.getElementById(`delete-form-${activityId}`).submit();
+        }
+    }
+</script>
 @endsection

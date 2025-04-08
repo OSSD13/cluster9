@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     // ตัวอย่าง Route ที่อาจต้องการให้เข้าถึงได้ทุกคนที่ Login
     Route::get('/categories/history', [ActivityController::class, 'history'])->name('history.all');
     Route::get('/categories/history/{id}', [ActivityController::class, 'show'])->name('categories.history');
+    Route::delete('/activity/{id}', [ActivityController::class, 'destroy'])->name('activity.delete');
 });
 
 // Route ที่ไม่ได้อยู่ในกลุ่ม Middleware ใดๆ (เข้าถึงได้โดยไม่ต้อง Login)
