@@ -105,6 +105,14 @@ class ActivityController extends Controller
         return view('province.history-detail');
     }
 
+    public function checkDetailProvince()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('province/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
     public function viewSheet()
     {
         return view('central.historyCentral');
@@ -115,7 +123,7 @@ class ActivityController extends Controller
         return view('central.historySheet');
     }
 
-    public function detailCentral()
+    public function historyDetailCentral()
     {
         return view('central.history-detail');
     }
@@ -124,7 +132,32 @@ class ActivityController extends Controller
     {
         $activity = Activity::findOrFail($id);
         $activity->delete();
-
         return redirect()->back()->with('success', 'กิจกรรมถูกลบเรียบร้อยแล้ว');
+    }
+    public function checkDetailCentral()
+    {
+        // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
+        // $activities = Activity::where(...)->get(); // สมมุติ
+
+        return view('central/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
+    }
+
+    public function checkByProvince() {
+        return view('province/checkActivityProvince');
+    }
+
+    public function checkByCentral() {
+        return view('central/checkActivityCentral');
+    }
+
+    public function checkSheet() {
+        return view('central/checkSheetCentral');
+    }
+
+    public function historyDetailProvince()
+    {
+        // Replace 'region' with an existing column, e.g., 'province'
+
+        return view('province/check-detail');
     }
 }

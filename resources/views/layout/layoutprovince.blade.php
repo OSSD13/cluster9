@@ -456,6 +456,73 @@
             background-color: #ddd;
             border-radius: 4px;
         }
+
+        .submit-all-activities-area {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            margin-right: 10px;
+        }
+
+        .submit-all-activities-area .submit-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .submit-all-activities-area .submit-button {
+            background-color: #7d39d6;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-confirm {
+            background-color: #00AEEF;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background-color: #0091cc;
+        }
+
+        .btn-cancel {
+            background-color: #F44336;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #d32f2f;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
     </style>
 </head>
 
@@ -468,13 +535,13 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="province" class="menu-item" onclick="showCategories()">
+            <a href="{{ url('/categories/province') }}" class="menu-item" onclick="showCategories()">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
-            <a href="#" class="menu-item" onclick="showActivities()">
+            <a href="{{ url('/categories/checkActivityProvince') }}" class="menu-item" onclick="showActivities()">
                 <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
-            <a href="{{ url('/categories/history') }}" class="menu-item">
+            <a href="{{ url('/categories/historyProvince') }}" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
             <a href="#" class="menu-item">
@@ -524,11 +591,13 @@
                 checkActivity(activityId);
             }
         }
-        var modal = document.getElementById("activityModal");
+
+        var activityModal = document.getElementById("activityModal");
+        var declineModal = document.getElementById("declineModal");
 
         function openActivityModal(categoryId) {
 
-            modal.style.display = "block";
+            activityModal.style.display = "block";
             document.getElementById('activity-form').action = '/activities/' + categoryId;
             document.getElementById('category_id').value = categoryId;
             document.getElementById('activity_name').value = '';
@@ -538,9 +607,21 @@
         }
 
         function closeActivityModal() {
-            modal.style.display = "none";
+            activityModal.style.display = "none";
         }
 
+        function openDeclineModal(categoryId) {
+            declineModal.style.display = "block";
+        }
+
+        function closeDeclineModal(categoryId) {
+            declineModal.style.display = "none";
+        }
+
+        function closeModal() {
+            closeActivityModal();
+            closeDeclineModal();
+        }
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";

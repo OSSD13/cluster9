@@ -18,7 +18,7 @@
             <tbody>
                 <tr>
                     <td>ชลบุรี </td>
-                    <td><a href="historySheet" ><button class="view-details-button">ดูข้อมูล</button></td>
+                    <td><a href="{{ url('/categories/historySheet')}}" ><button class="view-details-button">ดูข้อมูล</button></td>
                 </tr>
 
 
