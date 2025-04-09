@@ -63,7 +63,11 @@
                     <td>{{ $activity->activity_name }}</td>
                     <td>{{ $activity->activity_status }}</td>
                 <td>
-                    <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
+                    <button class="edit-button" 
+                    onclick="editActivity({{ $activity->activity_id }},
+                    '{{ $activity->activity_name }}',
+                    '{{ $activity->activity_description }}',
+                    '{{ $activity->activity_date }}')">แก้ไข</button>
                     <button class="logout-button" onclick="deleteActivity(this)"> ลบ</button>
                     <button class="view-details-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                 </td>
@@ -72,6 +76,8 @@
         </tbody>
     </table>
 </div>
+
+{{-- หน้าต่างลอยบันทึกกิจกรรม --}}
 <div id="activityModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeActivityModal()">&times;</span>
@@ -83,7 +89,6 @@
                 <label for="activity_name">ชื่อกิจกรรม:</label>
                 <input type="text" id="activity_name" name="activity_name" required>
             </div>
-
             <div class="form-group">
                 <label for="activity_description">คำอธิบาย:</label>
                 <textarea id="activity_description" name="activity_description" rows="4" required></textarea>
@@ -98,10 +103,45 @@
                 <label for="activity_date">วัน/เดือน/ปี ที่ทำกิจกรรม:</label>
                 <input type="date" id="activity_date" name="activity_date" required>
             </div>
-            <button type="submit" class="submit-button">บันทึกรายงาน</button>
+            <button type="submit" class="submit-button">บันทึกกิจกรรม</button>
         </form>
     </div>
 </div>
+{{-- สิ้นสุดหน้าบันทึกกิจกรรม --}}
+
+{{-- หน้าต่างลอยแก้ไขกิจกรรม --}}
+<div id="editActivityModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditActivityModal()">&times;</span>
+        <h2>แก้ไขบันทึกกิจกรรม</h2>
+        <form id="edit-activity-form" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="activity_id" id="edit_activity_id">
+            <div class="form-group">
+                <label for="edit_activity_name">ชื่อกิจกรรม:</label>
+                <input type="text" id="edit_activity_name" name="activity_name" required>
+            </div>
+            <div class="form-group">
+                <label for="edit_activity_description">คำอธิบาย:</label>
+                <textarea id="edit_activity_description" name="activity_description" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="edit_activity_image">เพิ่มรูปภาพ (สูงสุด 5 รูป):</label>
+                <input type="file" id="activity_image" name="activity_image[]" accept="image/*" multiple
+                    onchange="">
+                <div id="images-preview"></div>
+            </div>
+            <div class="form-group">
+                <label for="edit_activity_date">วัน/เดือน/ปี ที่ทำกิจกรรม:</label>
+                <input type="date" id="edit_activity_date" name="activity_date" required>
+            </div>
+            <button type="submit" class="submit-button">แก้ไขกิจกรรม</button>
+        </form>
+    </div>
+</div>
+{{-- สิ้นสุดหน้าแก้ไขกิจกรรม --}}
+
 <div id="activityDetailsModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeActivityDetailsModal()">&times;</span>
@@ -110,4 +150,5 @@
         </div>
     </div>
 </div>
+
 @endsection

@@ -30,7 +30,7 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     Route::get('/history', [ActivityController::class, 'history_volunteer'])->name('history');
 
     // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นอาสาสมัครและผ่านการ Login
-    Route::post('/activities/{id}/update', [ActivityController::class, 'update'])->name('activities.update');
+    Route::put('/home/volunteer/{activity}', [ActivityController::class, 'edit'])->name('activities.edit');
     Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
 });
 

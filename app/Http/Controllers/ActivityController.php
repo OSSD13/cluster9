@@ -28,6 +28,7 @@ class ActivityController extends Controller
         $categories = Category::all();
         return view('volunteer.history', compact('categories'));
     }
+
     //ดึงและส่งค่า Activity ของจิตอาสา
     //ใช้ใน VolunteerController
     function getVolunteerActivity()
@@ -79,5 +80,34 @@ class ActivityController extends Controller
         return view('central/history-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
 
+    //แก้ไขข้อมูลกิจกรรม
+    public function edit(Request $request, $id)
+    {
+    $request->validate([
+        'activity_name' => 'required|string|max:255',
+        'activity_description' => 'required|string',
+        'activity_date' => 'required|date',
+    ]);
 
+    $activity = Activity::findOrFail($id);
+
+    $activity->activity_name = $request->activity_name;
+    $activity->activity_description = $request->activity_description;
+    $activity->activity_date = $request->activity_date;
+    $activity->save();
+
+    return redirect()->back()->with('success', 'กิจกรรมได้รับการแก้ไขเรียบร้อยแล้ว');
+    }
+
+    //ลบข้อมูลกิจกรรม
+    public function destroy($id)
+    {
+        $activity = Activity::find($id);
+
+        if ($activity) {
+            $activity->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false], 404);
+    }
 }

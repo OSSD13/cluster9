@@ -638,32 +638,21 @@
             });
         }
 
-        function editActivity(button) {
-            var row = button.closest("tr");
-            var category = row.cells[0].textContent.trim();
-            var activityName = row.cells[1].textContent.trim();
-            var activityDate = row.cells[2].textContent.trim();
-            var description = row.cells[3].textContent.trim();
-            var imageSrc = row.querySelector('img') ? row.querySelector('img').src : "";
-            openActivityModal();
-
-            document.getElementById("activity_name").value = activityName;
-            document.getElementById("activity_description").value = description;
-            document.getElementById("activity_date").value = activityDate;
-
-            var imagePreview = document.getElementById("image-preview");
-            imagePreview.innerHTML = '';
-            if (imageSrc) {
-                var imgElement = document.createElement('img');
-                imgElement.src = imageSrc;
-                imgElement.style.maxWidth = '100px';
-                imgElement.style.maxHeight = '100px';
-                imagePreview.appendChild(imgElement);
-            }
-            document.getElementById("category_id").value = category;
+        //เรียกหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function editActivity(id, name, description, date) {
+            const modal = document.getElementById('editActivityModal');
+            modal.style.display = 'block';
+            document.getElementById('edit_activity_name').value = name;
+            document.getElementById('edit_activity_description').value = description;
+            document.getElementById('edit_activity_date').value = date;
+            const form = document.getElementById('edit-activity-form');
+            form.action = `/home/volunteer/${id}`;
         }
 
-
+        //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function closeEditActivityModal(){
+            editActivityModal.style.display = "none";
+        }
 
         // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
         document.getElementById('history-activities-table').addEventListener('click', function(event) {
