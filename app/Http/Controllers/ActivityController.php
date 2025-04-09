@@ -57,7 +57,7 @@ class ActivityController extends Controller
         $activity->activity_update_at = now()->toDateTimeString();
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
-        $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
+        $activity->activity_status = 'กำลังดำเนินการ'; // หรือสถานะเริ่มต้น
 
 
         //$data = $req->all();

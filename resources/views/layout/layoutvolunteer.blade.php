@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
     * {
@@ -352,7 +353,7 @@
         cursor: not-allowed;
     }
 
-    .view-details-button {
+    .view-button {
         background-color: #008CBA;
         color: white;
         padding: 8px 12px;
@@ -362,11 +363,11 @@
         font-size: 14px;
     }
 
-    .view-details-button:hover {
+    .view-button:hover {
         background-color: #0077A3;
     }
 
-    .view-details:disabled {
+    .view-button:disabled {
         background-color: #cccccc;
         color: #666666;
         cursor: not-allowed;
@@ -409,7 +410,7 @@
         margin-right: 10px;
     }
 
-    .submit-all-activities-area .submit-button {
+    .sent-all-activities-area .sent-button {
         background-color: #7d39d6;
         color: white;
         padding: 8px 16px;
@@ -450,18 +451,16 @@
         border: 1px solid #ddd;
     }
 
-    .submit-all-activities-area {
+    .sent-all-activities-area {
         position: absolute;
         top: 10px;
         right: 10px;
         margin-right: 10px;
     }
 
-    .submit-all-activities-area .submit-button:hover {
-        background-color: #d32f2f;
-    }
 
-    .submit-all-activities-area .submit-button {
+
+    .sent-all-activities-area .sent-button {
         background-color: #7d39d6;
         color: white;
         padding: 8px 16px;
@@ -469,6 +468,16 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
+    }
+
+    .sent-all-activities-area .sent-button:hover {
+        background-color: #d32f2f;
+    }
+
+    .sent-all-activities-area .sent-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
     }
 </style>
 </head>
@@ -668,8 +677,9 @@
                 }
             });
         }
+        
 
-        function sentActivityModal() {
+        function sentActivityModal(status) {
             Swal.fire({
                 title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
                 showDenyButton: true,
@@ -680,25 +690,31 @@
                 if (result.isConfirmed) {
                     // แสดงผลลัพธ์การส่ง
                     Swal.fire("ส่งสำเร็จ!", "", "success");
-                    // ปิดปุ่มทั้งหมด
-                    const activityButtons = document.querySelectorAll(".activity-button");
-                    activityButtons.forEach(btn => btn.disabled = true);
+                    if (status == 'รอการตรวจสอบ') { // ปิดปุ่มทั้งหมด
+                        const activityButtons = document.querySelectorAll(".activity-button");
+                        activityButtons.forEach(btn => btn.disabled = true);
 
-                    const editButtons = document.querySelectorAll(".edit-button");
-                    editButtons.forEach(btn => btn.disabled = true);
+                        const editButtons = document.querySelectorAll(".edit-button");
+                        editButtons.forEach(btn => btn.disabled = true);
 
-                    const submitButtons = document.querySelectorAll(".submit-button");
-                    submitButtons.forEach(btn => btn.disabled = true);
+                        const submitButtons = document.querySelectorAll(".submit-button");
+                        submitButtons.forEach(btn => btn.disabled = true);
 
-                    const deleteButtons = document.querySelectorAll(".delete-button");
-                    deleteButtons.forEach(btn => btn.disabled = true);
+                        const deleteButtons = document.querySelectorAll(".delete-button");
+                        deleteButtons.forEach(btn => btn.disabled = true);
+                        const viewButtons = document.querySelectorAll(".view-button");
+                        viewButtons.forEach(btn => btn.disabled = true);
 
+                        const sentButtons = document.querySelectorAll(".sent-button");
+                        sentButtons.forEach(btn => btn.disabled = true);
 
+                    }
                 } else if (result.isDenied) {
                     Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
                 }
             });
         }
+
 
 
         function editActivity(button) {
