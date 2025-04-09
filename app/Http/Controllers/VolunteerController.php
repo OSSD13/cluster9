@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ActivityController;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,9 @@ class VolunteerController extends Controller
     function index(){
         $categories = (new CategoryController)->getVolunteerCategory(); //หมวดหมู่
 
-        $activities = DB::table('var_activities') //กิจกรรม 
-        ->join('var_categories', 'categories_id', '=', 'var_categories.category_id') //join กับ หมวดหมู่
-        ->get();
+       
+        $user = Auth::user(); // ดึงข้อมูลผู้ใช้งานที่ล็อกอินอยู่
+        $activities = Activity::all(); // กรองกิจกรรมที่ผู้ใช้งานสร้าง
         
         return view('volunteer.main' ,compact('categories' ,'activities'));
     }
