@@ -195,16 +195,16 @@ class ActivityController extends Controller
     }
 
     //ลบข้อมูลกิจกรรม
-    public function destroy($id)
-    {
-        $activity = Activity::find($id);
+    // public function destroy($id)
+    // {
+    //     $activity = Activity::find($id);
 
-        if ($activity) {
-            $activity->delete();
-            return response()->json(['success' => true]);
-        }
-        return response()->json(['success' => false], 404);
-    }
+    //     if ($activity) {
+    //         $activity->delete();
+    //         return response()->json(['success' => true]);
+    //     }
+    //     return response()->json(['success' => false], 404);
+    // }
 }
 
 
