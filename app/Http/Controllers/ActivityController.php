@@ -31,6 +31,7 @@ class ActivityController extends Controller
     //ใช้ใน VolunteerController
     function getVolunteerActivity()
     {
+
         return $activities = Activity::all();
     }
 
@@ -60,7 +61,7 @@ class ActivityController extends Controller
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
         $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
-        
+
 
         //$data = $req->all();
         //$data['users_id'] = Auth::id();
