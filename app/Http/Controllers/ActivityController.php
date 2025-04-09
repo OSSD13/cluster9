@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Activity;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -112,7 +111,6 @@ class ActivityController extends Controller
 
         return view('province/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
-
     public function viewSheet()
     {
         return view('central.historyCentral');
@@ -161,3 +159,6 @@ class ActivityController extends Controller
         return view('province/check-detail');
     }
 }
+
+
+

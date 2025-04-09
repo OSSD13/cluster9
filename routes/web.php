@@ -11,6 +11,7 @@ use App\Http\Middleware\CentralOfficer;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ApprovalController; // เพิ่ม Controller ที่อาจมีในไฟล์ที่สอง
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', fn() => view('login'));
 Route::get('/login', fn() => view('login'));
@@ -51,6 +52,7 @@ Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('categories');
     Route::get('/categories/historyProvince', [ActivityController::class, 'history'])->name('history');
     Route::get('categories/checkActivityProvince' , [ActivityController::class , 'checkByProvince'])->name('checkByProvince');
+    Route::get('/provincedashboard' , [DashboardController::class , 'index_province'])->name('pdashboard');
 
     // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ระดับจังหวัดและผ่านการ Login
     Route::get('/categories/vhd001', [ActivityController::class, 'historyDetailProvince'])->name('historyDetailProvince');
@@ -73,6 +75,8 @@ Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
     Route::get('/categories/historySheet', [ActivityController::class, 'historySheet'])->name('historySheet');
     Route::get('categories/checkActivityCentral' , [ActivityController::class , 'checkByCentral'])->name('checkByCentral');
     Route::get('categories/checkSheetCentral' , [ActivityController::class , 'checkSheet'])->name('checkSheetByProvince');
+    Route::get('/centraldashboard' , [DashboardController::class , 'index_central'])->name('cdashboard');
+
 
     // Route ที่ซ้ำซ้อน (สามารถลบได้)
     // Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
