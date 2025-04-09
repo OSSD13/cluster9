@@ -11,7 +11,7 @@ class Activity extends Model
 
     protected $table = 'var_activities';
     protected $primaryKey = 'activity_id';
-
+    public $timestamps = false;
     protected $fillable = [
         'activity_name',
         'activity_date',
@@ -20,7 +20,7 @@ class Activity extends Model
         'activity_report_date',
         'activity_permission',
         'categories_id',
-        'user_id',
+        'users_id',
     ];
 
     /**
