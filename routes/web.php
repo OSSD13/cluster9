@@ -43,6 +43,9 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     // แชทเพิ่ม (จากไฟล์แรก)
     Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
     // Route::post('/activities', [ActivityController::class, 'store']);
+    // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นอาสาสมัครและผ่านการ Login
+    Route::put('/home/volunteer/{activity}', [ActivityController::class, 'edit'])->name('activities.edit');
+    Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
 });
 
 // check สิทธิ์การเข้าถึง จังหวัด

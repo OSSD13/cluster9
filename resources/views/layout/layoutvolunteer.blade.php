@@ -684,8 +684,21 @@
             }
             document.getElementById("category_id").value = category;
         }
+        //เรียกหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function editActivity(id, name, description, date) {
+            const modal = document.getElementById('editActivityModal');
+            modal.style.display = 'block';
+            document.getElementById('edit_activity_name').value = name;
+            document.getElementById('edit_activity_description').value = description;
+            document.getElementById('edit_activity_date').value = date;
+            const form = document.getElementById('edit-activity-form');
+            form.action = `/home/volunteer/${id}`;
+        }
 
-
+        //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function closeEditActivityModal(){
+            editActivityModal.style.display = "none";
+        }
 
         // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
         document.getElementById('history-activities-table').addEventListener('click', function(event) {

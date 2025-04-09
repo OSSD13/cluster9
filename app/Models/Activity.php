@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    const CREATED_AT = 'activity_create_at';
+    const UPDATED_AT = 'activity_update_at';
+    
     use HasFactory;
 
     protected $table = 'var_activities';

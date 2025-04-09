@@ -145,7 +145,6 @@ class ActivityController extends Controller
         return view('province/check-detail');
     }
 
-    /*
     public function store(Request $request)
     {
         $request->validate([
@@ -175,7 +174,37 @@ class ActivityController extends Controller
     public function detailProvince()
     {
         return view('province.history-detail');
-    }*/
+    }
+    //แก้ไขข้อมูลกิจกรรม
+    public function edit(Request $request, $id)
+    {
+    $request->validate([
+        'activity_name' => 'required|string|max:255',
+        'activity_description' => 'required|string',
+        'activity_date' => 'required|date',
+    ]);
+
+    $activity = Activity::findOrFail($id);
+
+    $activity->activity_name = $request->activity_name;
+    $activity->activity_description = $request->activity_description;
+    $activity->activity_date = $request->activity_date;
+    $activity->save();
+
+    return redirect()->back()->with('success', 'กิจกรรมได้รับการแก้ไขเรียบร้อยแล้ว');
+    }
+
+    //ลบข้อมูลกิจกรรม
+    public function destroy($id)
+    {
+        $activity = Activity::find($id);
+
+        if ($activity) {
+            $activity->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false], 404);
+    }
 }
 
 
