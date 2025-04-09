@@ -17,6 +17,10 @@ class Category extends Model
         return $this->category_mandatory == 1 ? 'บังคับ' : 'ไม่บังคับ';
     }
 
+    public function getCategoryName(){
+        $category = Category::all();
+    }
+
     /**
      * Get the activities for the category.
      */

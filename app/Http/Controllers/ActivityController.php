@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,8 +29,16 @@ class ActivityController extends Controller
 
     public function getVolunteerActivity()
     {
+        //return $activities = Activity::all();
+        //ไนท์เพิ่มใหม่9/4/68
+       // ใช้ auth()->id() เพื่อดึง ID ของผู้ใช้ที่ล็อกอิน
+    $userId = auth()->id();
 
-        return $activities = Activity::all();
+    // กรองกิจกรรมตาม users_id ที่ทำการบันทึก
+    $activities = Activity::where('users_id', $userId)->get();
+
+    // ส่งกลับข้อมูลกิจกรรมที่กรองแล้ว
+    return response()->json($activities);
     }
 
     public function history_central()
@@ -37,8 +46,10 @@ class ActivityController extends Controller
         return view('central.history');
     }
 
-    public function addActivity(Request $req, $cat_id){
-
+    //ใช้อยู่ตอนนี้
+    //เพิ่มกิจกรรม
+    public function addActivity(Request $req, $cat_id)
+    {
         $req->validate([
             'activity_name' => 'required|string|max:255',
             'activity_description' => 'required|string',
@@ -58,7 +69,6 @@ class ActivityController extends Controller
         $activity->users_id = auth()->id();
         $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
 
-
         //$data = $req->all();
         //$data['users_id'] = Auth::id();
         //Activity::create($data);
@@ -66,42 +76,15 @@ class ActivityController extends Controller
         $activity->save();
 
         return redirect()->back()->with('success', 'เพิ่มกิจกรรมเรียบร้อยแล้ว!');
-
     }
     public function index()
     {
-        return response()->json(Activity::all());
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'category_id' => 'required|integer|exists:categories,id', // เพิ่ม exists เช็ค category_id
-            'activity_name' => 'required|string',
-            'activity_description' => 'required|string',
-            'activity_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // เพิ่ม max size
-        ]);
-
-        $imagePaths = [];
-        if ($request->hasFile('activity_images')) {
-            foreach ($request->file('activity_images') as $image) {
-                $imagePaths[] = $image->store('public/activity_images'); // เปลี่ยน path เป็น public/activity_images
-            }
-        }
-
-        $activity = Activity::create([
-            'category_id' => $request->category_id,
-            'activity_name' => $request->activity_name,
-            'activity_description' => $request->activity_description,
-            'activity_images' => json_encode($imagePaths),
-        ]);
-
-        return response()->json($activity, 201);
-    }
-
-    public function detailProvince()
-    {
-        return view('province.history-detail');
+        //ไนท์เพิ่มใหม่9/4/68
+        $user = Auth::user(); // ดึงข้อมูลผู้ใช้งานที่ล็อกอินอยู่
+        $activities = Activity::where('users_id', $user->id)->get(); // กรองกิจกรรมที่ผู้ใช้งานสร้าง
+        //dd($activities);
+        //echo"check";
+        return view('activities.index', compact('activities'));
     }
 
     public function checkDetailProvince()
@@ -140,15 +123,18 @@ class ActivityController extends Controller
         return view('central/check-detail'); // ชื่อ blade ที่คุณเขียนไว้ เช่น history.blade.php
     }
 
-    public function checkByProvince() {
+    public function checkByProvince()
+    {
         return view('province/checkActivityProvince');
     }
 
-    public function checkByCentral() {
+    public function checkByCentral()
+    {
         return view('central/checkActivityCentral');
     }
 
-    public function checkSheet() {
+    public function checkSheet()
+    {
         return view('central/checkSheetCentral');
     }
 
@@ -158,6 +144,38 @@ class ActivityController extends Controller
 
         return view('province/check-detail');
     }
+
+    /*
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|integer|exists:categories,id', // เพิ่ม exists เช็ค category_id
+            'activity_name' => 'required|string',
+            'activity_description' => 'required|string',
+            'activity_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // เพิ่ม max size
+        ]);
+
+        $imagePaths = [];
+        if ($request->hasFile('activity_images')) {
+            foreach ($request->file('activity_images') as $image) {
+                $imagePaths[] = $image->store('public/activity_images'); // เปลี่ยน path เป็น public/activity_images
+            }
+        }
+
+        $activity = Activity::create([
+            'category_id' => $request->category_id,
+            'activity_name' => $request->activity_name,
+            'activity_description' => $request->activity_description,
+            'activity_images' => json_encode($imagePaths),
+        ]);
+
+        return response()->json($activity, 201);
+    }
+
+    public function detailProvince()
+    {
+        return view('province.history-detail');
+    }*/
 }
 
 
