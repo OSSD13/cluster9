@@ -36,7 +36,13 @@ class ActivityController extends Controller
     }
 
 
-    public function addActivity(Request $req){
+    //แสดงหน้า history ของส่วนกลาง
+    public function history_central()
+    {
+        return view('central.history');
+    }
+    public function addActivity(Request $req)
+    {
 
         $activity = new Activity();
         $activity->activity_name = $req->activity_name;
