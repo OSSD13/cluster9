@@ -577,16 +577,16 @@
             });
         }
 
-        document.getElementById('activity-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var categoryId = document.getElementById('category_id').value;
-            var categoryName = document.querySelector('#activity-' + categoryId).closest('tr').cells[0].textContent;
-            var activityName = document.getElementById('activity_name').value;
-            var activityDescription = document.getElementById('activity_description').value;
+        // document.getElementById('activity-form').addEventListener('submit', function(event) {
+        //     //event.preventDefault();
+        //     var categoryId = document.getElementById('category_id').value;
+        //     var categoryName = document.querySelector('#activity-' + categoryId).closest('tr').cells[0].textContent;
+        //     var activityName = document.getElementById('activity_name').value;
+        //     var activityDescription = document.getElementById('activity_description').value;
 
-            addActivityToTable(categoryId, categoryName, activityName, activityDescription);
-            closeActivityModal();
-        });
+        //     addActivityToTable(categoryId, categoryName, activityName, activityDescription);
+        //     closeActivityModal();
+        // });
 
         var activityDetailsModal = document.getElementById("activityDetailsModal");
 
