@@ -46,6 +46,9 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นอาสาสมัครและผ่านการ Login
     Route::put('/home/volunteer/{activity}', [ActivityController::class, 'edit'])->name('activities.edit');
     Route::post('/activities/add', [ActivityController::class, 'addActivity'])->name('activities.add');
+    //ลบกิจกรรม
+    Route::delete('/activities/{id}', [ActivityController::class, 'destroy'])->name('activity.delete');
+
 });
 
 // check สิทธิ์การเข้าถึง จังหวัด

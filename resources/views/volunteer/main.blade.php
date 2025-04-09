@@ -63,7 +63,7 @@
             @foreach ($activities as $activity)
 
             <tr>
-            @if($activity->users_id == auth()->id())
+                @if($activity->users_id == auth()->id())
                 <td>{{ $activity->category->category_name }}</td>
                 <td>{{ $activity->activity_name }}</td>
                 <td>{{ $activity->activity_status }}</td>
@@ -72,12 +72,12 @@
 
                     {{-- <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
                     <form action="{{ route('activity.delete', $activity->activity_id) }}" method="POST" style="display: inline;" id="delete-form-{{ $activity->activity_id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="logout-button" onclick="confirmDelete({{ $activity->activity_id }})"> ลบ </button>
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="logout-button" onclick="confirmDelete({{ $activity->activity_id }})"> ลบ </button>
                     </form> --}}
                     <button class="edit-button" onclick="editActivity({{ $activity->activity_id }},'{{ $activity->activity_name }}','{{ $activity->activity_description }}','{{ $activity->activity_date }}')">แก้ไข</button>
-                    <button class="logout-button" onclick="deleteActivity(this)"> ลบ</button>
+                    <button class="logout-button" onclick="deleteActivity({{ $activity->activity_id }})"> ลบ</button> 
                     <button class="view-details-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                 </td>
             </tr>

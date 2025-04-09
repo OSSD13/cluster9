@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>VAR System</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -615,7 +618,7 @@
             }
         }
 
-        function deleteActivity(button) {
+    /*function deleteActivity(activity_id) {
             Swal.fire({
                 title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่",
                 //text: "You won't be able to revert this!",
@@ -636,7 +639,47 @@
                     });
                 }
             });
+        }*/
+
+       //เพิ่มใหม่
+        function deleteActivity(activity_id) {
+    Swal.fire({
+        title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#007BFF",
+        cancelButtonColor: "#F44336",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // สร้าง form ขึ้นมาแบบชั่วคราวเพื่อส่งคำสั่งลบ
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/activities/${activity_id}`;
+            form.style.display = 'none';
+
+            // เพิ่ม CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // เพิ่ม method spoofing สำหรับ DELETE
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'DELETE';
+            form.appendChild(methodInput);
+
+            document.body.appendChild(form);
+            form.submit();
         }
+    });
+}
+
 
         function sentActivityModal() {
             Swal.fire({

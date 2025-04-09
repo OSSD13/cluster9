@@ -109,12 +109,12 @@ class ActivityController extends Controller
         return view('central.history-detail');
     }
 
-    public function destroy($id)
+    /*public function destroy($id)
     {
         $activity = Activity::findOrFail($id);
         $activity->delete();
         return redirect()->back()->with('success', 'กิจกรรมถูกลบเรียบร้อยแล้ว');
-    }
+    }*/
     public function checkDetailCentral()
     {
         // ดึงข้อมูลกิจกรรมย้อนหลังจากฐานข้อมูล ถ้ามี
@@ -196,16 +196,23 @@ class ActivityController extends Controller
 
     //ลบข้อมูลกิจกรรม
     public function destroy($id)
-    {
-        $activity = Activity::find($id);
+{
+    $activity = Activity::findOrFail($id);
 
-        if ($activity) {
-            $activity->delete();
-            return response()->json(['success' => true]);
-        }
-        return response()->json(['success' => false], 404);
+    // ตรวจสอบว่าเป็นของผู้ใช้คนนี้จริงหรือเปล่า (ถ้าต้องการ)
+    if ($activity->users_id !== auth()->id()) {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
+
+    $activity->delete();
+    $activity = Activity::all();
+
+    return redirect()->back()->with('success','activity has been deleted successfully');
 }
+}
+
+
+
 
 
 
