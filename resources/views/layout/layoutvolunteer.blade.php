@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>VAR System</title>
@@ -656,7 +656,7 @@
             // สร้าง form ขึ้นมาแบบชั่วคราวเพื่อส่งคำสั่งลบ
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = `/activities/${activity_id}`;
+            form.action = `/cluster9/home/volunteer/${activity_id}`;
             form.style.display = 'none';
 
             // เพิ่ม CSRF token
@@ -735,7 +735,7 @@
             document.getElementById('edit_activity_description').value = description;
             document.getElementById('edit_activity_date').value = date;
             const form = document.getElementById('edit-activity-form');
-            form.action = `/home/volunteer/${id}`;
+            form.action = `/cluster9/home/volunteer/${id}`;
         }
 
         //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม

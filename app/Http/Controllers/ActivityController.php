@@ -55,6 +55,8 @@ class ActivityController extends Controller
             'activity_description' => 'required|string',
             'activity_date' => 'required|date',
             'category_id' => 'required|exists:var_categories,category_id',
+            'activity_permission' => 'required|string|in: V', // ตัวอย่าง: อนุญาตเฉพาะค่า V หรือ A
+
         ]);
 
         $activity = new Activity();
@@ -63,7 +65,8 @@ class ActivityController extends Controller
         $activity->activity_date = $req->input('activity_date');
         $activity->categories_id = $cat_id;
         $activity->activity_report_date = now()->toDateTimeString();
-        $activity->activity_create_at = now()->toDateTimeString();
+        $activity->activity_report_date
+        $activity->activity_permission = 'V';
         $activity->activity_update_at = now()->toDateTimeString();
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
@@ -208,7 +211,7 @@ class ActivityController extends Controller
     $activity = Activity::all();
 
     return redirect()->back()->with('success','activity has been deleted successfully');
-    
+
 }
 }
 
