@@ -14,14 +14,6 @@ class CategoryController extends Controller
     {
         return view('central.dashboard');
     }
-    public function dashboard_province()
-    {
-        return view('province.dashboard');
-    }
-    public function report_central()
-    {
-        return view('central.report');
-    }
 
     //แสดงหน้า checkactivity ของส่วนกลาง
     public function check_central()

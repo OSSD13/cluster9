@@ -547,7 +547,7 @@
             <a href="#" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
-            <a href="{{ route ('pdashboard') }}" class="menu-item" >
+            <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar"></i> Dashboard
             </a>
 
@@ -580,7 +580,6 @@
             document.getElementById('categories-section').style.display = 'none';
             document.getElementById('activities-section').style.display = 'block';
         }
-
 
         function checkActivity(activityId) {
             // เพิ่ม logic สำหรับตรวจสอบกิจกรรม
