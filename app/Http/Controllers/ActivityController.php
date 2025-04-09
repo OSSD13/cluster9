@@ -208,6 +208,7 @@ class ActivityController extends Controller
     $activity = Activity::all();
 
     return redirect()->back()->with('success','activity has been deleted successfully');
+    
 }
 }
 
