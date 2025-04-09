@@ -483,7 +483,7 @@
         }
 
         function showHistory() {
-            window.location.href = "{{ route('history') }}";
+            window.location.href = "{{ route('history_volunteer') }}";
         }
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', function(e) {

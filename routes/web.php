@@ -29,7 +29,7 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
     Route::get('/homevolunteer', [RoleController::class, 'v']);
     Route::get('/categories/volunteer', [CategoryController::class, 'index_volunteer'])->name('vcategories');
     Route::get('/home/volunteer', [VolunteerController::class, 'index'])->name('home_volunteer');
-    Route::get('/history', [ActivityController::class, 'history_volunteer'])->name('history');
+    Route::get('/categories/historyVolunteer', [ActivityController::class, 'history_volunteer'])->name('history_volunteer');
 
     // Route ที่ซ้ำซ้อน (สามารถลบได้)
     // Route::get('/history', function () {
@@ -50,7 +50,7 @@ Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/pofficer', [RoleController::class, 'p'])->name('pofficer.home');
     Route::get('/homeprovince', [RoleController::class, 'p']);
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('categories');
-    Route::get('/categories/historyProvince', [ActivityController::class, 'history'])->name('history');
+    Route::get('/categories/historyProvince', [ActivityController::class, 'history_province'])->name('history_province');
     Route::get('categories/checkActivityProvince' , [ActivityController::class , 'checkByProvince'])->name('checkByProvince');
     Route::get('/provincedashboard' , [DashboardController::class , 'index_province'])->name('pdashboard');
 

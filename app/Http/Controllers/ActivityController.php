@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ActivityController extends Controller
 {
-    public function history()
+    public function history_province()
     {
-        return view('province.historyProvince');
+        return view('province.history');
     }
 
     public function getHistoryData()
