@@ -281,6 +281,15 @@
             cursor: pointer;
         }
 
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
         form-group {
             margin-bottom: 20px;
         }

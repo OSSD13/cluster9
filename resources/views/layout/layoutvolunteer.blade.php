@@ -223,6 +223,15 @@
         margin-top: 10px;
     }
 
+    .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
     .form-group .image-preview img {
         max-width: 100%;
         max-height: 100%;

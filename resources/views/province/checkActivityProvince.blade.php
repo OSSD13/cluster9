@@ -7,9 +7,9 @@
         </div>
         <h2>ตรวจสอบกิจกรรม</h2>
         <div class="year-filter-container">
-            <input type="text" class="form-control" placeholder=" ค้นหารายชื่อ" aria-label="Recipient's username"
+            <input type="text" placeholder=" ค้นหารายชื่อ" aria-label="Recipient's username"
                 aria-describedby="basic-addon2">
-            <button class="btn btn-outline-secondary" type="button">ค้นหา</button>
+            <button type="button">ค้นหา</button>
         </div>
 
         <table class="activity-table" id="check-activities-table">
