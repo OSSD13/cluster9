@@ -16,8 +16,10 @@ class CategoryController extends Controller
     {
         return view('central.dashboard');
     }
-
-    // แสดงหน้า report ของส่วนกลาง
+    public function dashboard_province()
+    {
+        return view('province.dashboard');
+    }
     public function report_central()
     {
         return view('central.report');

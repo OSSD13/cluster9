@@ -466,7 +466,7 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="province" class="menu-item" onclick="showCategories()">
+            <a href="{{url('categories/province')}}" class="menu-item" onclick="showCategories()">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
             <a href="#" class="menu-item" onclick="showActivities()">
@@ -478,7 +478,7 @@
             <a href="#" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
-            <a href="{{ route('dashboard') }}" class="menu-item" onclick="ShowDashboard()">
+            <a href="{{ route ('pdashboard') }}" class="menu-item" >
                 <i class="fas fa-chart-bar"></i> Dashboard
             </a>
 

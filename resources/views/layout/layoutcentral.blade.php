@@ -535,7 +535,7 @@
             <a href="{{url('/report/central')}}" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
-            <a href="{{url('/dashboard/central')}}" class="menu-item">
+            <a href="{{ route('cdashboard') }}" class="menu-item">
                 <i class="far fa-chart-bar"></i> Dashboard
             </a>
         </div>
