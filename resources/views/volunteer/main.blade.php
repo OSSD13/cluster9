@@ -72,7 +72,7 @@
                         <form action="{{ route('activity.delete', $activity->activity_id) }}" method="POST" style="display: inline;" id="delete-form-{{ $activity->activity_id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="logout-button" onclick="confirmDelete({{ $activity->activity_id }})"> ลบ</button>
+                            <button type="button" class="delete-button" onclick="confirmDelete({{ $activity->activity_id }})"> ลบ</button>
                         </form>
                         <button class="view-details-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                     </td>

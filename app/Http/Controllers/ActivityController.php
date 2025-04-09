@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class ActivityController extends Controller
 {
@@ -157,6 +158,18 @@ class ActivityController extends Controller
         // Replace 'region' with an existing column, e.g., 'province'
 
         return view('province/check-detail');
+    }
+
+    public function lock(Request $request)
+    {
+        Session::put('activity_locked', true); // หรือบันทึกลง DB ตาม user/กิจกรรม
+        return response()->json(['status' => 'locked']);
+    }
+
+    public function unlock(Request $request)
+    {
+        Session::forget('activity_locked');
+        return response()->json(['status' => 'unlocked']);
     }
 }
 

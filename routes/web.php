@@ -51,8 +51,8 @@ Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/homeprovince', [RoleController::class, 'p']);
     Route::get('/categories/province', [CategoryController::class, 'index_province'])->name('categories');
     Route::get('/categories/historyProvince', [ActivityController::class, 'history'])->name('history');
-    Route::get('categories/checkActivityProvince' , [ActivityController::class , 'checkByProvince'])->name('checkByProvince');
-    Route::get('/provincedashboard' , [DashboardController::class , 'index_province'])->name('pdashboard');
+    Route::get('categories/checkActivityProvince', [ActivityController::class, 'checkByProvince'])->name('checkByProvince');
+    Route::get('/provincedashboard', [DashboardController::class, 'index_province'])->name('pdashboard');
 
     // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ระดับจังหวัดและผ่านการ Login
     Route::get('/categories/vhd001', [ActivityController::class, 'historyDetailProvince'])->name('historyDetailProvince');
@@ -73,9 +73,9 @@ Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
     Route::get('/dashboard/central', [CategoryController::class, 'dashboard_central'])->name('cdashboard');
     Route::get('/categories/historyCentral', [ActivityController::class, 'viewSheet'])->name('viewSheet');
     Route::get('/categories/historySheet', [ActivityController::class, 'historySheet'])->name('historySheet');
-    Route::get('categories/checkActivityCentral' , [ActivityController::class , 'checkByCentral'])->name('checkByCentral');
-    Route::get('categories/checkSheetCentral' , [ActivityController::class , 'checkSheet'])->name('checkSheetByProvince');
-    Route::get('/centraldashboard' , [DashboardController::class , 'index_central'])->name('cdashboard');
+    Route::get('categories/checkActivityCentral', [ActivityController::class, 'checkByCentral'])->name('checkByCentral');
+    Route::get('categories/checkSheetCentral', [ActivityController::class, 'checkSheet'])->name('checkSheetByProvince');
+    Route::get('/centraldashboard', [DashboardController::class, 'index_central'])->name('cdashboard');
 
 
     // Route ที่ซ้ำซ้อน (สามารถลบได้)
@@ -83,12 +83,12 @@ Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
 });
 
 // check สิทธิ์การ login
-    // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ส่วนกลางและผ่านการ Login
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-    Route::get('/categories/vhd001-c', [ActivityController::class, 'historyDetailCentral'])->name('detailCentral');
-    Route::get('/categories/vcd001-c', [ActivityController::class, 'checkDetailCentral'])->name('detailCentral');
+// Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ส่วนกลางและผ่านการ Login
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('/categories/vhd001-c', [ActivityController::class, 'historyDetailCentral'])->name('detailCentral');
+Route::get('/categories/vcd001-c', [ActivityController::class, 'checkDetailCentral'])->name('detailCentral');
 
 // กลุ่ม Route ที่ต้องมีการ Login เท่านั้น (ไม่จำกัดสิทธิ์)
 Route::middleware(['auth'])->group(function () {
@@ -100,3 +100,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     Route::delete('/activity/{id}', [ActivityController::class, 'destroy'])->name('activity.delete'); // จากไฟล์ที่สอง
 });
+
+// lock botton
+Route::post('/lock-activity', [ActivityController::class, 'lock'])->name('activity.lock');
+Route::post('/unlock-activity', [ActivityController::class, 'unlock'])->name('activity.unlock');

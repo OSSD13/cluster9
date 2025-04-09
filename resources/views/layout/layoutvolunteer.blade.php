@@ -314,6 +314,25 @@
         cursor: not-allowed;
     }
 
+    .delete-button {
+        background-color: #f44336;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+        background-color: #d32f2f;
+    }
+
+    .delete-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
     .edit-button {
         background-color: #007bff;
         color: white;
@@ -325,6 +344,12 @@
 
     .edit-button:hover {
         background-color: #0056b3;
+    }
+
+    .edit-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
     }
 
     .view-details-button {
@@ -339,6 +364,12 @@
 
     .view-details-button:hover {
         background-color: #0077A3;
+    }
+
+    .view-details:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
     }
 
     .activity-table td:last-child {
@@ -461,11 +492,11 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                        {{ Auth::user()->user_nameth }}
-                    </div>
+                <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                    {{ Auth::user()->user_nameth }}
+                </div>
                 @else
-                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -647,11 +678,21 @@
                 denyButtonText: "ไม่ส่ง"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // ส่งข้อมูล หรือเรียกฟังก์ชันส่งจริง ๆ ที่นี่
+                    // แสดงผลลัพธ์การส่ง
                     Swal.fire("ส่งสำเร็จ!", "", "success");
+                    // ปิดปุ่มทั้งหมด
+                    const activityButtons = document.querySelectorAll(".activity-button");
+                    activityButtons.forEach(btn => btn.disabled = true);
 
-                    // ตัวอย่าง: ส่งไปยัง backend ด้วย fetch หรือ AJAX
-                    // fetch(`/submit-activity/${categoryId}`, { method: "POST" })
+                    const editButtons = document.querySelectorAll(".edit-button");
+                    editButtons.forEach(btn => btn.disabled = true);
+
+                    const submitButtons = document.querySelectorAll(".submit-button");
+                    submitButtons.forEach(btn => btn.disabled = true);
+
+                    const deleteButtons = document.querySelectorAll(".delete-button");
+                    deleteButtons.forEach(btn => btn.disabled = true);
+
 
                 } else if (result.isDenied) {
                     Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
