@@ -59,6 +59,8 @@ class ActivityController extends Controller
             'activity_permission' => 'required|string|in: V', // ตัวอย่าง: อนุญาตเฉพาะค่า V หรือ A
 
         ]);
+        echo 'test';
+        die();
 
         $activity = new Activity();
         $activity->activity_name = $req->input('activity_name');
@@ -174,7 +176,12 @@ class ActivityController extends Controller
 
         return response()->json($activity, 201);
     }
-
+    public function storeAct($request){
+        $act_id = $request->input('category_id');
+        echo $act_id;
+        die();
+        return redirect()->back();
+    }
     public function detailProvince()
     {
         return view('province.history-detail');

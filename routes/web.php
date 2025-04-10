@@ -39,6 +39,7 @@ Route::middleware([Volunteer::class, 'auth'])->group(function () {
 
     // Route ที่ใช้อยู่ (จากไฟล์แรก)
     Route::post('/activities/{cat_id}', [ActivityController::class, 'addActivity'])->name('activities.addActivity');
+    Route::post('/activities-add', [ActivityController::class, 'storeAct']);
 
     // แชทเพิ่ม (จากไฟล์แรก)
     Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');

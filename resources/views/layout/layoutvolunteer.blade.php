@@ -504,11 +504,11 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                    {{ Auth::user()->user_nameth }}
-                </div>
+                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                        {{ Auth::user()->user_nameth }}
+                    </div>
                 @else
-                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -543,7 +543,7 @@
         function openActivityModal(categoryId) {
 
             modal.style.display = "block";
-            document.getElementById('activity-form').action = '/cluster9/activities/' + categoryId;
+            document.getElementById('activity-form').action = '/activities-add';
             document.getElementById('category_id').value = categoryId;
             document.getElementById('activity_name').value = '';
             document.getElementById('activity_description').value = '';
@@ -658,10 +658,33 @@
             }
         }
 
-    /*function deleteActivity(activity_id) {
+        /*function deleteActivity(activity_id) {
+                Swal.fire({
+                    title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่",
+                    //text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#007BFF",
+                    cancelButtonColor: "#F44336",
+                    confirmButtonText: "ยืนยัน",
+                    cancelButtonText: 'ยกเลิก'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var row = button.closest("tr");
+                        row.remove();
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    }
+                });
+            }*/
+
+        //เพิ่มใหม่
+        function deleteActivity(activity_id) {
             Swal.fire({
-                title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่",
-                //text: "You won't be able to revert this!",
+                title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#007BFF",
@@ -670,125 +693,103 @@
                 cancelButtonText: 'ยกเลิก'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var row = button.closest("tr");
-                    row.remove();
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
-                }
-            });
-        }*/
+                    // สร้าง form ขึ้นมาแบบชั่วคราวเพื่อส่งคำสั่งลบ
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `/cluster9/home/volunteer/${activity_id}`;
+                    form.style.display = 'none';
 
-       //เพิ่มใหม่
-        function deleteActivity(activity_id) {
-    Swal.fire({
-        title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#007BFF",
-        cancelButtonColor: "#F44336",
-        confirmButtonText: "ยืนยัน",
-        cancelButtonText: 'ยกเลิก'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // สร้าง form ขึ้นมาแบบชั่วคราวเพื่อส่งคำสั่งลบ
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `/cluster9/home/volunteer/${activity_id}`;
-            form.style.display = 'none';
+                    // เพิ่ม CSRF token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = '_token';
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
 
-            // เพิ่ม CSRF token
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            const csrfInput = document.createElement('input');
-            csrfInput.type = 'hidden';
-            csrfInput.name = '_token';
-            csrfInput.value = csrfToken;
-            form.appendChild(csrfInput);
+                    // เพิ่ม method spoofing สำหรับ DELETE
+                    const methodInput = document.createElement('input');
+                    methodInput.type = 'hidden';
+                    methodInput.name = '_method';
+                    methodInput.value = 'DELETE';
+                    form.appendChild(methodInput);
 
-            // เพิ่ม method spoofing สำหรับ DELETE
-            const methodInput = document.createElement('input');
-            methodInput.type = 'hidden';
-            methodInput.name = '_method';
-            methodInput.value = 'DELETE';
-            form.appendChild(methodInput);
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-    });
-
-
-
-
-        function sentActivityModal() {
-            Swal.fire({
-                title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: "ใช่, ส่งเลย",
-                denyButtonText: "ไม่ส่ง"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // แสดงผลลัพธ์การส่ง
-                    Swal.fire("ส่งสำเร็จ!", "", "success");
-                    document.getElementById("sent-btn-form").submit();
-                } else if (result.isDenied) {
-                    Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
+                    document.body.appendChild(form);
+                    form.submit();
                 }
             });
         }
 
 
 
-        function editActivity(button) {
-            var row = button.closest("tr");
-            var category = row.cells[0].textContent.trim();
-            var activityName = row.cells[1].textContent.trim();
-            var activityDate = row.cells[2].textContent.trim();
-            var description = row.cells[3].textContent.trim();
-            var imageSrc = row.querySelector('img') ? row.querySelector('img').src : "";
-            openActivityModal();
 
-            document.getElementById("activity_name").value = activityName;
-            document.getElementById("activity_description").value = description;
-            document.getElementById("activity_date").value = activityDate;
-
-            var imagePreview = document.getElementById("image-preview");
-            imagePreview.innerHTML = '';
-            if (imageSrc) {
-                var imgElement = document.createElement('img');
-                imgElement.src = imageSrc;
-                imgElement.style.maxWidth = '100px';
-                imgElement.style.maxHeight = '100px';
-                imagePreview.appendChild(imgElement);
+            function sentActivityModal() {
+                Swal.fire({
+                    title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "ใช่, ส่งเลย",
+                    denyButtonText: "ไม่ส่ง"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // แสดงผลลัพธ์การส่ง
+                        Swal.fire("ส่งสำเร็จ!", "", "success");
+                        document.getElementById("sent-btn-form").submit();
+                    } else if (result.isDenied) {
+                        Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
+                    }
+                });
             }
-            document.getElementById("category_id").value = category;
-        }
-        //เรียกหน้าต่างลอยหน้าแก้ไขกิจกรรม
-        function editActivity(id, name, description, date) {
-            const modal = document.getElementById('editActivityModal');
-            modal.style.display = 'block';
-            document.getElementById('edit_activity_name').value = name;
-            document.getElementById('edit_activity_description').value = description;
-            document.getElementById('edit_activity_date').value = date;
-            const form = document.getElementById('edit-activity-form');
-            form.action = `/cluster9/home/volunteer/${id}`;
-        }
 
-        //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม
-        function closeEditActivityModal(){
-            editActivityModal.style.display = "none";
-        }
 
-        // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
-        document.getElementById('history-activities-table').addEventListener('click', function(event) {
-            if (event.target.classList.contains('view-details-button')) {
-                var row = event.target.closest('tr');
-                openActivityDetailsModal(row);
+
+            // function editActivity(button) {
+            //     var row = button.closest("tr");
+            //     var category = row.cells[0].textContent.trim();
+            //     var activityName = row.cells[1].textContent.trim();
+            //     var activityDate = row.cells[2].textContent.trim();
+            //     var description = row.cells[3].textContent.trim();
+            //     var imageSrc = row.querySelector('img') ? row.querySelector('img').src : "";
+            //     openActivityModal();
+
+            //     document.getElementById("activity_name").value = activityName;
+            //     document.getElementById("activity_description").value = description;
+            //     document.getElementById("activity_date").value = activityDate;
+
+            //     var imagePreview = document.getElementById("image-preview");
+            //     imagePreview.innerHTML = '';
+            //     if (imageSrc) {
+            //         var imgElement = document.createElement('img');
+            //         imgElement.src = imageSrc;
+            //         imgElement.style.maxWidth = '100px';
+            //         imgElement.style.maxHeight = '100px';
+            //         imagePreview.appendChild(imgElement);
+            //     }
+            //     document.getElementById("category_id").value = category;
+            // }
+            //เรียกหน้าต่างลอยหน้าแก้ไขกิจกรรม
+            function editActivity(id, name, description, date) {
+                const modal = document.getElementById('editActivityModal');
+                modal.style.display = 'block';
+                document.getElementById('edit_activity_name').value = name;
+                document.getElementById('edit_activity_description').value = description;
+                document.getElementById('edit_activity_date').value = date;
+                const form = document.getElementById('edit-activity-form');
+                form.action = `/cluster9/home/volunteer/${id}`;
             }
-        });
+
+            //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม
+            function closeEditActivityModal() {
+                editActivityModal.style.display = "none";
+            }
+
+            // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
+            document.getElementById('history-activities-table').addEventListener('click', function(event) {
+                if (event.target.classList.contains('view-details-button')) {
+                    var row = event.target.closest('tr');
+                    openActivityDetailsModal(row);
+                }
+            });
     </script>
 </body>
 
