@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+    const CREATED_AT = 'activity_create_at';
+    const UPDATED_AT = 'activity_update_at';
+    
     use HasFactory;
 
     protected $table = 'var_activities';
     protected $primaryKey = 'activity_id';
+    public $timestamps = false;
     protected $fillable = [
         'activity_name',
         'activity_date',
@@ -19,7 +23,7 @@ class Activity extends Model
         'activity_report_date',
         'activity_permission',
         'categories_id',
-        'user_id',
+        'users_id',
     ];
 
     /**
@@ -29,4 +33,12 @@ class Activity extends Model
     {
         return $this->belongsTo(Category::class, 'categories_id', 'category_id');
     }
+    
+     //ไนท์เพิ่มใหม่9/4/68
+     
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+        
 }

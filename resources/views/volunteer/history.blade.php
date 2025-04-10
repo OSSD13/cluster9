@@ -22,8 +22,8 @@
             @foreach ($categories as $category)
             <tr>
                 <td>{{ $category->category_name }}</td>
-                <td>{{ $category->category_activityName }}</td>
-                <td>{{ $category->category_creatDate }}</td>
+                <td>{{ $category->category_activity_name }}</td>
+                <td>{{ $category->category_activity_create_at }}</td>
 
                 <td style="text-align: center;">
                     <button class="view-details-button" id="activity-{{ $category->category_id }}"

@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>VAR System</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <style>
     * {
@@ -314,6 +318,25 @@
         cursor: not-allowed;
     }
 
+    .delete-button {
+        background-color: #f44336;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+        background-color: #d32f2f;
+    }
+
+    .delete-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
     .edit-button {
         background-color: #007bff;
         color: white;
@@ -327,7 +350,13 @@
         background-color: #0056b3;
     }
 
-    .view-details-button {
+    .edit-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
+    .view-button {
         background-color: #008CBA;
         color: white;
         padding: 8px 12px;
@@ -337,8 +366,14 @@
         font-size: 14px;
     }
 
-    .view-details-button:hover {
+    .view-button:hover {
         background-color: #0077A3;
+    }
+
+    .view-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
     }
 
     .activity-table td:last-child {
@@ -378,7 +413,7 @@
         margin-right: 10px;
     }
 
-    .submit-all-activities-area .submit-button {
+    .sent-all-activities-area .sent-button {
         background-color: #7d39d6;
         color: white;
         padding: 8px 16px;
@@ -419,18 +454,16 @@
         border: 1px solid #ddd;
     }
 
-    .submit-all-activities-area {
+    .sent-all-activities-area {
         position: absolute;
         top: 10px;
         right: 10px;
         margin-right: 10px;
     }
 
-    .submit-all-activities-area .submit-button:hover {
-        background-color: #d32f2f;
-    }
 
-    .submit-all-activities-area .submit-button {
+
+    .sent-all-activities-area .sent-button {
         background-color: #7d39d6;
         color: white;
         padding: 8px 16px;
@@ -438,6 +471,16 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
+    }
+
+    .sent-all-activities-area .sent-button:hover {
+        background-color: #d32f2f;
+    }
+
+    .sent-all-activities-area .sent-button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
     }
 </style>
 </head>
@@ -461,11 +504,11 @@
         <div class="main-content">
             <div class="header">
                 @if (Auth::check())
-                    <div class="welcome-text">ยินดีต้อนรับ, คุณ
-                        {{ Auth::user()->user_nameth }}
-                    </div>
+                <div class="welcome-text">ยินดีต้อนรับ, คุณ
+                    {{ Auth::user()->user_nameth }}
+                </div>
                 @else
-                    <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
+                <div class="welcome-text">ยินดีต้อนรับ, ผู้เยี่ยมชม</div>
                 @endif
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -483,7 +526,7 @@
         }
 
         function showHistory() {
-            window.location.href = "{{ route('history') }}";
+            window.location.href = "{{ route('history_volunteer') }}";
         }
         document.querySelectorAll('.menu-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -577,16 +620,16 @@
             });
         }
 
-        document.getElementById('activity-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var categoryId = document.getElementById('category_id').value;
-            var categoryName = document.querySelector('#activity-' + categoryId).closest('tr').cells[0].textContent;
-            var activityName = document.getElementById('activity_name').value;
-            var activityDescription = document.getElementById('activity_description').value;
+        // document.getElementById('activity-form').addEventListener('submit', function(event) {
+        //     //event.preventDefault();
+        //     var categoryId = document.getElementById('category_id').value;
+        //     var categoryName = document.querySelector('#activity-' + categoryId).closest('tr').cells[0].textContent;
+        //     var activityName = document.getElementById('activity_name').value;
+        //     var activityDescription = document.getElementById('activity_description').value;
 
-            addActivityToTable(categoryId, categoryName, activityName, activityDescription);
-            closeActivityModal();
-        });
+        //     addActivityToTable(categoryId, categoryName, activityName, activityDescription);
+        //     closeActivityModal();
+        // });
 
         var activityDetailsModal = document.getElementById("activityDetailsModal");
 
@@ -615,7 +658,7 @@
             }
         }
 
-        function deleteActivity(button) {
+    /*function deleteActivity(activity_id) {
             Swal.fire({
                 title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่",
                 //text: "You won't be able to revert this!",
@@ -636,7 +679,86 @@
                     });
                 }
             });
+        }*/
+
+       //เพิ่มใหม่
+        function deleteActivity(activity_id) {
+    Swal.fire({
+        title: "ยืนยันที่จะลบบันทึกกิจกรรมหรือไม่?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#007BFF",
+        cancelButtonColor: "#F44336",
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // สร้าง form ขึ้นมาแบบชั่วคราวเพื่อส่งคำสั่งลบ
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/cluster9/home/volunteer/${activity_id}`;
+            form.style.display = 'none';
+
+            // เพิ่ม CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // เพิ่ม method spoofing สำหรับ DELETE
+            const methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'DELETE';
+            form.appendChild(methodInput);
+
+            document.body.appendChild(form);
+            form.submit();
         }
+    });
+
+
+
+
+        function sentActivityModal(status) {
+            Swal.fire({
+                title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "ใช่, ส่งเลย",
+                denyButtonText: "ไม่ส่ง"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // แสดงผลลัพธ์การส่ง
+                    Swal.fire("ส่งสำเร็จ!", "", "success");
+                    if (status == 'รอการตรวจสอบ') { // ปิดปุ่มทั้งหมด
+                        const activityButtons = document.querySelectorAll(".activity-button");
+                        activityButtons.forEach(btn => btn.disabled = true);
+
+                        const editButtons = document.querySelectorAll(".edit-button");
+                        editButtons.forEach(btn => btn.disabled = true);
+
+                        const submitButtons = document.querySelectorAll(".submit-button");
+                        submitButtons.forEach(btn => btn.disabled = true);
+
+                        const deleteButtons = document.querySelectorAll(".delete-button");
+                        deleteButtons.forEach(btn => btn.disabled = true);
+                        const viewButtons = document.querySelectorAll(".view-button");
+                        viewButtons.forEach(btn => btn.disabled = true);
+
+                        const sentButtons = document.querySelectorAll(".sent-button");
+                        sentButtons.forEach(btn => btn.disabled = true);
+
+                    }
+                } else if (result.isDenied) {
+                    Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
+                }
+            });
+        }
+
+
 
         function editActivity(button) {
             var row = button.closest("tr");
@@ -662,8 +784,21 @@
             }
             document.getElementById("category_id").value = category;
         }
+        //เรียกหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function editActivity(id, name, description, date) {
+            const modal = document.getElementById('editActivityModal');
+            modal.style.display = 'block';
+            document.getElementById('edit_activity_name').value = name;
+            document.getElementById('edit_activity_description').value = description;
+            document.getElementById('edit_activity_date').value = date;
+            const form = document.getElementById('edit-activity-form');
+            form.action = `/cluster9/home/volunteer/${id}`;
+        }
 
-
+        //ปิดหน้าต่างลอยหน้าแก้ไขกิจกรรม
+        function closeEditActivityModal(){
+            editActivityModal.style.display = "none";
+        }
 
         // เพิ่ม Event Listener ให้กับปุ่ม "ดูข้อมูลเพิ่มเติม"
         document.getElementById('history-activities-table').addEventListener('click', function(event) {

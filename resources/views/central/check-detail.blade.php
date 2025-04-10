@@ -3,9 +3,9 @@
 @section('content')
     <div id="history">
         <div class="activity-area">
-            <a href="{{ url('/categories/historySheet')}}"><button class="view-backward-button">◀ ย้อนกลับ</button></a>
+            <a href="{{ url('/categories/checkSheetCentral') }}"><button class="view-backward-button">◀ ย้อนกลับ</button></a>
 
-            <h2 style="margin-top: 1%"> ข้อมูลย้อนหลังกิจกรรมของนายเซไค เอิร์ธ</h2>
+            <h2 style="margin-top: 1%"> ตรวจสอบกิจกรรมของนายเซไค เอิร์ธ</h2>
             <table class="activity-table" id="history-activities-table">
                 <thead>
                     <tr>
@@ -52,6 +52,22 @@
                     </div>
                     <p style="margin-top: 20px;"><span class="label">วันที่บันทึกกิจกรรม</span> : 26 / 10 / 2566</p>
                 </div>
-            </form>
+                <div class="modal-footer">
+                    <span class="btn btn-confirm" onclick="closeActivityModal()">อนุมัติ</span>
+                    <span class="btn btn-cancel" onclick="openDeclineModal()" onclick="closeActivityModal()">ไม่อนุมัติ</span>
+                </div>
         </div>
-    @endsection
+        </form>
+    </div>
+
+    <div id="declineModal" class="modal">
+        <div class="modal-content">
+            <h2 style="text-align: center;">เหตุผลที่ไม่อนุมัติกิจกรรม</h2>
+            <textarea style="margin-top : 2%" placeholder="กรอกเหตุผลที่ไม่อนุมัติกิจกรรม"></textarea>
+            <div class="modal-footer">
+                <span class="btn btn-confirm" onclick="closeModal()">ยืนยัน</span>
+                <span class="btn btn-cancel" onclick="closeDeclineModal()">ยกเลิก</span>
+            </div>
+        </div>
+    </div>
+@endsection
