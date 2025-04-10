@@ -1,7 +1,8 @@
 @extends('layout.layoutcentral')
 
 @section('content')
-<div>
+<div class="category-area">
+    <h2> จำนวนอาสาสมัครที่เข้าร่วมในแต่ละปี </h2>
     <canvas id="myChart"></canvas>
 </div>
 
@@ -20,7 +21,7 @@
                 label: 'จำนวนอาสาสมัครที่เข้าร่วมในแต่ละปี',
                 data: data,
                 borderWidth: 1
-             
+
 
             }]
         },

@@ -538,16 +538,6 @@
             margin-top: 12px;
         }
 
-
-        .btn {
-            padding: 10px 24px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
         .btn-confirm {
             background-color: #00AEEF;
             color: white;
