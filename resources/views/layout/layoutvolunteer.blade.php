@@ -543,7 +543,7 @@
         function openActivityModal(categoryId) {
 
             modal.style.display = "block";
-            document.getElementById('activity-form').action = '/activities/' + categoryId;
+            document.getElementById('activity-form').action = '/cluster9/activities/' + categoryId;
             document.getElementById('category_id').value = categoryId;
             document.getElementById('activity_name').value = '';
             document.getElementById('activity_description').value = '';
@@ -722,7 +722,7 @@
 
 
 
-        function sentActivityModal(status) {
+        function sentActivityModal() {
             Swal.fire({
                 title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
                 showDenyButton: true,
@@ -733,25 +733,7 @@
                 if (result.isConfirmed) {
                     // แสดงผลลัพธ์การส่ง
                     Swal.fire("ส่งสำเร็จ!", "", "success");
-                    if (status == 'รอการตรวจสอบ') { // ปิดปุ่มทั้งหมด
-                        const activityButtons = document.querySelectorAll(".activity-button");
-                        activityButtons.forEach(btn => btn.disabled = true);
-
-                        const editButtons = document.querySelectorAll(".edit-button");
-                        editButtons.forEach(btn => btn.disabled = true);
-
-                        const submitButtons = document.querySelectorAll(".submit-button");
-                        submitButtons.forEach(btn => btn.disabled = true);
-
-                        const deleteButtons = document.querySelectorAll(".delete-button");
-                        deleteButtons.forEach(btn => btn.disabled = true);
-                        const viewButtons = document.querySelectorAll(".view-button");
-                        viewButtons.forEach(btn => btn.disabled = true);
-
-                        const sentButtons = document.querySelectorAll(".sent-button");
-                        sentButtons.forEach(btn => btn.disabled = true);
-
-                    }
+                    document.getElementById("sent-btn-form").submit();
                 } else if (result.isDenied) {
                     Swal.fire("ยกเลิกการส่งแล้ว", "", "info");
                 }
