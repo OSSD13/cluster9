@@ -171,6 +171,17 @@ class ActivityController extends Controller
         Session::forget('activity_locked');
         return response()->json(['status' => 'unlocked']);
     }
+    public function submitActivity(Request $request){
+        $activitiesData = json_decode($request->input('acts'));
+        foreach ($activitiesData as $activityData) {
+            $activity = Activity::findOrFail($activityData->activity_id);
+            if($activity){
+                $activity->activity_status = 'รอตรวจสอบ';
+                $activity->save();
+            }
+        }
+        return redirect()->route('home_volunteer')->with('success','sent activities successfully');
+    }
 }
 
 

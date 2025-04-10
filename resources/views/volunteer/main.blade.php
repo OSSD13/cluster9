@@ -3,11 +3,20 @@
 @section('content')
 <?php
 $isSent = false;
+$isAvailable = false;
 foreach ($activities as $activity) {
     if ($activity->activity_status == 'รอแก้ไข' || $activity->activity_status == 'รอตรวจสอบ' || $activity->activity_status == 'ผ่านการอนุมัติ') {
         $isSent = true;
+        $isAvailable = false;
     }
 }
+
+foreach ($activities as $activity) {
+    if ($activity->activity_status == 'รอแก้ไข' || $activity->activity_status == 'กำลังดำเนินการ') {
+        $isAvailable = true;
+    }
+}
+
 ?>
 <div class="category-area">
     <h2>รายการหมวดหมู่</h2>
@@ -59,9 +68,21 @@ foreach ($activities as $activity) {
 <div class="activity-area">
     <h2>รายการกิจกรรม</h2>
     <div class="sent-all-activities-area">
-        <button class="sent-button" onclick="sentActivityModal()">
+
+        <form action="{{ url('/category-submit') }}" id="sent-btn-form" method="POST">
+            @csrf
+
+            <input type="hidden" name="acts" value="{{ json_encode($activities) }}">
+
+
+            @if($isAvailable)
+            <button type="button" class="sent-button" onclick="sentActivityModal()" />
+            @else
+            <button type="button" class="sent-button" onclick="sentActivityModal()" disabled />
+
+            @endif
             ส่งชุดกิจกรรมทั้งหมด
-        </button>
+            </button>
     </div>
 
     <table class="activity-table" id="added-activities-table">
@@ -85,9 +106,9 @@ foreach ($activities as $activity) {
                     <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
                     <button class="view-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
                     @else
-                    <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
-                    <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
-                    <button class="view-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
+                    <button class="edit-button" onclick="editActivity(this)" disabled> แก้ไข</button>
+                    <button class="delete-button" onclick="deleteActivity(this)" disabled> ลบ</button>
+                    <button class="view-button" onclick="openActivityDetailsModal(this)" disabled>ดูข้อมูลเพิ่มเติม</button>
                     @endif
                 </td>
             </tr>

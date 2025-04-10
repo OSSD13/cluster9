@@ -104,3 +104,5 @@ Route::middleware(['auth'])->group(function () {
 // lock botton
 Route::post('/lock-activity', [ActivityController::class, 'lock'])->name('activity.lock');
 Route::post('/unlock-activity', [ActivityController::class, 'unlock'])->name('activity.unlock');
+
+Route::post('/category-submit',[ActivityController::class, 'submitActivity']);
