@@ -10,8 +10,8 @@
                 <option selected able value ="">ทั้งหมด</option>
                 <option value ="2023">2023</option>
             </select>
-                <input type="text" class="form-control" placeholder=" ค้นหารายชื่อ" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                  <button class="btn btn-outline-secondary" type="button">ค้นหา</button>
+                <input type="text" placeholder=" ค้นหารายชื่อ" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <button type="button">ค้นหา</button>
         </div>
 
         <table class="activity-table" id="history-activities-table">

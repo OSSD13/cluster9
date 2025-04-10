@@ -59,6 +59,7 @@ Route::middleware([ProvinceOfficer::class, 'auth'])->group(function () {
     Route::get('/categories/historyProvince', [ActivityController::class, 'history_province'])->name('history_province');
     Route::get('categories/checkActivityProvince' , [ActivityController::class , 'checkByProvince'])->name('checkByProvince');
     Route::get('/provincedashboard' , [DashboardController::class , 'index_province'])->name('pdashboard');
+    Route::get('/report/province', [ApprovalController::class, 'index_approvalProvince'])->name('preport');
 
     // Route ภายในนี้สามารถเข้าถึงได้เฉพาะผู้ที่มีสิทธิ์เป็นเจ้าหน้าที่ระดับจังหวัดและผ่านการ Login
     Route::get('/categories/vhd001', [ActivityController::class, 'historyDetailProvince'])->name('historyDetailProvince');

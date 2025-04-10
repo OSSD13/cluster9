@@ -2,7 +2,8 @@
 
 @section('content')
 
-<div>
+<div class="category-area">
+    <h2> จำนวนอาสาสมัครที่เข้าร่วมในแต่ละปี </h2>
     <canvas id="myChart"></canvas>
 </div>
 

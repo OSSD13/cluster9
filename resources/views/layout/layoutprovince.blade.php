@@ -535,16 +535,16 @@
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-            <a href="{{ url('/categories/province') }}" class="menu-item" onclick="showCategories()">
+            <a href="{{ url('/categories/province') }}" class="menu-item">
                 <i class="fas fa-home"></i> หน้าหลัก
             </a>
-            <a href="{{ url('/categories/checkActivityProvince') }}" class="menu-item" onclick="showActivities()">
+            <a href="{{ url('/categories/checkActivityProvince') }}" class="menu-item">
                 <i class="fas fa-tasks"></i> ตรวจสอบกิจกรรม
             </a>
             <a href="{{ url('/categories/historyProvince') }}" class="menu-item">
                 <i class="fas fa-history"></i> ข้อมูลย้อนหลัง
             </a>
-            <a href="#" class="menu-item">
+            <a href="{{ url('/report/province')}}" class="menu-item">
                 <i class="far fa-regular fa-file"></i> รายงานกิจกรรม
             </a>
             <a href="{{ route ('pdashboard') }}" class="menu-item" >
@@ -571,17 +571,6 @@
         </div>
     </div>
     <script>
-        function showCategories() {
-            document.getElementById('categories-section').style.display = 'block';
-            document.getElementById('activities-section').style.display = 'none';
-        }
-
-        function showActivities() {
-            document.getElementById('categories-section').style.display = 'none';
-            document.getElementById('activities-section').style.display = 'block';
-        }
-
-
         function checkActivity(activityId) {
             // เพิ่ม logic สำหรับตรวจสอบกิจกรรม
             console.log("ตรวจสอบกิจกรรม ID: " + activityId);
