@@ -73,9 +73,8 @@ Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
     Route::get('/cofficer', [RoleController::class, 'c'])->name('cofficer.home');
     Route::get('/homecentral', [RoleController::class, 'c']);
     Route::get('/categories/central', [CategoryController::class, 'index_central'])->name('ccategories');
-
-    Route::get('/report/central', [ApprovalController::class, 'index_approval'])->name('creport');
-    // Route::get('/report/central', [ApprovalController::class, 'index_UserApproval'])->name('creporttable');
+    // ใช้ ApprovalController จากไฟล์ที่สอง
+    Route::get('/report/central', [ApprovalController::class, 'report_central'])->name('creport');
     Route::get('/checkactivity/central', [CategoryController::class, 'check_central'])->name('ccheck');
     Route::get('/dashboard/central', [CategoryController::class, 'dashboard_central'])->name('cdashboard');
     Route::get('/categories/historyCentral', [ActivityController::class, 'viewSheet'])->name('viewSheet');

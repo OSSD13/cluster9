@@ -28,7 +28,6 @@ class CategoryController extends Controller
     {
         return view('central.checkactivity');
     }
-    
     public function index_central()
     {
         $categories = Category::all()->map(function ($category) {
@@ -38,13 +37,11 @@ class CategoryController extends Controller
         });
         return view('central.main', compact('categories'));
     }
-
     public function index_province()
     {
         $categories = Category::all();
         return view('province.main', compact('categories'));
     }
-
     public function index_volunteer()
     {
         $categories = Category::all();
