@@ -679,7 +679,7 @@
         }
         
 
-        function sentActivityModal(status) {
+        function sentActivityModal() {
             Swal.fire({
                 title: "คุณต้องการส่งชุดกิจกรรมทั้งหมดใช่หรือไม่?",
                 showDenyButton: true,

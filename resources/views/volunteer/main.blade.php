@@ -1,7 +1,14 @@
 @extends('layout.layoutvolunteer')
 
 @section('content')
-
+<?php
+$isSent = false;
+foreach ($activities as $activity) {
+    if ($activity->activity_status == 'รอแก้ไข' || $activity->activity_status == 'รอตรวจสอบ' || $activity->activity_status == 'ผ่านการอนุมัติ') {
+        $isSent = true;
+    }
+}
+?>
 <div class="category-area">
     <h2>รายการหมวดหมู่</h2>
     @if ($categories->count() > 0)
@@ -29,10 +36,17 @@
                     @endif
                 </td>
                 <td style="text-align: center;">
+                    @if(!$isSent)
                     <button class="activity-button" id="activity-{{ $category->category_id }}"
                         onclick="openActivityModal({{ $category->category_id }})">ทำกิจกรรม</button>
                     <button class="edit-button" id="edit-{{ $category->category_id }}"
                         style="display: none;">แก้ไข</button>
+                    @else
+                    <button class="activity-button" id="activity-{{ $category->category_id }}"
+                        onclick="openActivityModal({{ $category->category_id }})" disabled>ทำกิจกรรม</button>
+                    <button class="edit-button" id="edit-{{ $category->category_id }}"
+                        style="display: none;" disabled>แก้ไข</button>
+                    @endif
                 </td>
             </tr>
             @endforeach
@@ -45,10 +59,7 @@
 <div class="activity-area">
     <h2>รายการกิจกรรม</h2>
     <div class="sent-all-activities-area">
-        <?php $act = $activities[0];
-        $act_state = $act->activity_status;
-        ?>
-        <button class="sent-button" onclick="sentActivityModal('{{ $act_state }}')">
+        <button class="sent-button" onclick="sentActivityModal()">
             ส่งชุดกิจกรรมทั้งหมด
         </button>
     </div>
@@ -69,7 +80,7 @@
                 <td>{{ $activity->activity_name }}</td>
                 <td>{{ $activity->activity_status }}</td>
                 <td>
-                    @if($activity->activity_status == 'รอการแก้ไข')
+                    @if($activity->activity_status == 'รอแก้ไข'||$activity->activity_status == 'กำลังดำเนินการ')
                     <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
                     <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
                     <button class="view-button" onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
@@ -124,63 +135,8 @@
 </div>
 <script>
     $(document).ready(function() {
-            // Get PHP variable into JavaScript
-            var actState = "<?php echo $act_state; ?>";
+        // Get PHP variable into JavaScript
 
-            // Check its value
-            if (actState === "รอตรวจสอบ") {
-                const activityButtons = document.querySelectorAll(".activity-button");
-                activityButtons.forEach(btn => btn.disabled = true);
-
-                const editButtons = document.querySelectorAll(".edit-button");
-                editButtons.forEach(btn => btn.disabled = true);
-
-                const submitButtons = document.querySelectorAll(".submit-button");
-                submitButtons.forEach(btn => btn.disabled = true);
-
-                const deleteButtons = document.querySelectorAll(".delete-button");
-                deleteButtons.forEach(btn => btn.disabled = true);
-                const viewButtons = document.querySelectorAll(".view-button");
-                viewButtons.forEach(btn => btn.disabled = true);
-
-                const sentButtons = document.querySelectorAll(".sent-button");
-                sentButtons.forEach(btn => btn.disabled = true);
-            } else if (actState === "รอแก้ไข") {
-                const activityButtons = document.querySelectorAll(".activity-button");
-                activityButtons.forEach(btn => btn.disabled = true);
-
-                const editButtons = document.querySelectorAll(".edit-button");
-                editButtons.forEach(btn => btn.disabled = false);
-
-                const submitButtons = document.querySelectorAll(".submit-button");
-                submitButtons.forEach(btn => btn.disabled = false);
-
-                const deleteButtons = document.querySelectorAll(".delete-button");
-                deleteButtons.forEach(btn => btn.disabled = false);
-                const viewButtons = document.querySelectorAll(".view-button");
-                viewButtons.forEach(btn => btn.disabled = false);
-
-                const sentButtons = document.querySelectorAll(".sent-button");
-                sentButtons.forEach(btn => btn.disabled = false);
-            }
-            else if (actState === "กำลังเดินการ") {
-                const activityButtons = document.querySelectorAll(".activity-button");
-                activityButtons.forEach(btn => btn.disabled = false);
-
-                const editButtons = document.querySelectorAll(".edit-button");
-                editButtons.forEach(btn => btn.disabled = false);
-
-                const submitButtons = document.querySelectorAll(".submit-button");
-                submitButtons.forEach(btn => btn.disabled = false);
-
-                const deleteButtons = document.querySelectorAll(".delete-button");
-                deleteButtons.forEach(btn => btn.disabled = false);
-                const viewButtons = document.querySelectorAll(".view-button");
-                viewButtons.forEach(btn => btn.disabled = false);
-
-                const sentButtons = document.querySelectorAll(".sent-button");
-                sentButtons.forEach(btn => btn.disabled = false);
-            }
-        });
+    });
 </script>
 @endsection
