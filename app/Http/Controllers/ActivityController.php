@@ -67,7 +67,6 @@ class ActivityController extends Controller
         $activity->categories_id = $cat_id;
         $activity->activity_report_date = now()->toDateTimeString();
         $activity->activity_report_date
-        $activity->activity_permission = 'V';
         $activity->activity_update_at = now()->toDateTimeString();
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
