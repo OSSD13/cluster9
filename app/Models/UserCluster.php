@@ -21,6 +21,5 @@ class UserCluster extends Model implements Authenticatable
         'user_role',
         'user_province',
         'user_nameth'
-
     ];
 }
