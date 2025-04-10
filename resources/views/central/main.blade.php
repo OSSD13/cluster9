@@ -1,6 +1,7 @@
 @extends('layout.layoutcentral')
 
 @section('content')
+
     <style>
         .is-invalid {
             border: 1px solid red !important;
@@ -52,6 +53,68 @@
                 /* ลดขนาดฟอนต์ */
                 padding: 8px;
             }
+
+<style>
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 5px;
+    }
+
+    .action-buttons button {
+        margin-right: 5px;
+    }
+
+    .disabled-button {
+        background-color: #929292 !important;
+        color: #ffffff !important;
+        border: 1px solid #8b8686 !important;
+        cursor: not-allowed !important;
+    }
+</style>
+
+<div class="category-area">
+    <div style="margin-bottom: 20px;">
+        <h2>เพิ่มหมวดหมู่ใหม่</h2>
+        <form action="{{ route('categories.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="category_name">ชื่อหมวดหมู่:</label>
+                <input type="text" id="category_name" name="category_name" class="form-control {{ $errors->storeCategory->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                @error('category_name', 'storeCategory')
+                    <div class="invalid-feedback">
+                        กรุณากรอกชื่อหมวดหมู่
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="category_description">รายละเอียด:</label>
+                <textarea id="category_description" name="category_description" class="form-control {{ $errors->storeCategory->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
+                @error('category_description', 'storeCategory')
+                    <div class="invalid-feedback">
+                        กรุณากรอกรายละเอียดหมวดหมู่
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="category_mandatory">สถานะ:</label>
+                <select id="category_mandatory" name="category_mandatory" class="form-control {{ $errors->storeCategory->has('category_mandatory') ? 'is-invalid' : '' }}">
+                    <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
+                    <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
+                </select>
+                @error('category_mandatory', 'storeCategory')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <button type="submit" class="btn btn-success">เพิ่มหมวดหมู่</button>
+        </form>
+    </div>
 
             .category-table th:nth-child(1),
             .category-table td:nth-child(1) {
@@ -157,6 +220,51 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <h2>แก้ไขหมวดหมู่</h2>
+                <form id="edit-form" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="category_id" value="{{ old('category_id') }}">
+                    <div class="form-group">
+                        <label for="edit_category_name">ชื่อหมวดหมู่:</label>
+                        <input type="text" id="edit_category_name" name="category_name" class="form-control {{ $errors->updateCategory->has('category_name') ? 'is-invalid' : '' }}" value="{{ old('category_name') }}">
+                        @error('category_name', 'updateCategory')
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อหมวดหมู่
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_category_description">รายละเอียด:</label>
+                        <textarea id="edit_category_description" name="category_description" class="form-control {{ $errors->updateCategory->has('category_description') ? 'is-invalid' : '' }}">{{ old('category_description') }}</textarea>
+                        @error('category_description', 'updateCategory')
+                            <div class="invalid-feedback">
+                                กรุณากรอกรายละเอียดหมวดหมู่
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_category_mandatory">ประเภท:</label>
+                        <select id="edit_category_mandatory" name="category_mandatory" class="form-control {{ $errors->updateCategory->has('category_mandatory') ? 'is-invalid' : '' }}">
+                            <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
+                            <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
+                        </select>
+                        @error('category_mandatory', 'updateCategory')
+                            <div class="invalid-feedback">
+                                กรุณาเลือกประเภทหมวดหมู่
+                            </div>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-success">อัปเดตหมวดหมู่</button>
+                </form>
             </div>
             <div id="editModal" class="modal">
                 <div class="modal-content">

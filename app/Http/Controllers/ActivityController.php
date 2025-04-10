@@ -13,7 +13,7 @@ class ActivityController extends Controller
 {
     public function history_province()
     {
-        return view('province.history');
+        return view('province.historyProvince');
     }
 
     public function getHistoryData()

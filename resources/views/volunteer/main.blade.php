@@ -68,22 +68,24 @@
             <tbody>
                 @foreach ($activities as $activity)
                     <tr>
-                        <td>{{ $activity->category_name }}</td>
-                        <td>{{ $activity->activity_name }}</td>
-                        <td>{{ $activity->activity_status }}</td>
-                        <td>
-                            @if ($activity->activity_status == 'รอการแก้ไข')
-                                <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
-                                <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
-                                <button class="view-button"
-                                    onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
-                            @else
-                                <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
-                                <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
-                                <button class="view-button"
-                                    onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
-                            @endif
-                        </td>
+                        @if ($activity->users_id == auth()->id())
+                            <td>{{ $activity->category->category_name }}</td>
+                            <td>{{ $activity->activity_name }}</td>
+                            <td>{{ $activity->activity_status }}</td>
+                            <td>
+                                @if ($activity->activity_status == 'รอการแก้ไข')
+                                    <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
+                                    <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
+                                    <button class="view-button"
+                                        onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
+                                @else
+                                    <button class="edit-button" onclick="editActivity(this)"> แก้ไข</button>
+                                    <button class="delete-button" onclick="deleteActivity(this)"> ลบ</button>
+                                    <button class="view-button"
+                                        onclick="openActivityDetailsModal(this)">ดูข้อมูลเพิ่มเติม</button>
+                                @endif
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
