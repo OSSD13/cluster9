@@ -53,11 +53,6 @@
                     <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
                     <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
                 </select>
-                @error('category_mandatory', 'storeCategory')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
             </div>
             <button type="submit" class="btn btn-success">เพิ่มหมวดหมู่</button>
         </form>
@@ -144,11 +139,6 @@
                             <option value="1" {{ old('category_mandatory') == '1' ? 'selected' : '' }}>บังคับ</option>
                             <option value="0" {{ old('category_mandatory') == '0' ? 'selected' : '' }}>ไม่บังคับ</option>
                         </select>
-                        @error('category_mandatory', 'updateCategory')
-                            <div class="invalid-feedback">
-                                กรุณาเลือกประเภทหมวดหมู่
-                            </div>
-                        @enderror
                     </div>
                     <button type="submit" class="btn btn-success">อัปเดตหมวดหมู่</button>
                 </form>

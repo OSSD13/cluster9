@@ -11,7 +11,6 @@ class Activity extends Model
 
     protected $table = 'var_activities';
     protected $primaryKey = 'activity_id';
-
     protected $fillable = [
         'activity_name',
         'activity_date',

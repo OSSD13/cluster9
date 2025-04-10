@@ -362,14 +362,6 @@
                 padding: 0;
             }
 
-            .form-group select {
-                appearance: none;
-                background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 4 5" xmlns="http://www.w3.org/2000/svg"><path d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
-                background-repeat: no-repeat;
-                background-position: right 10px top 50%;
-                padding-right: 30px;
-            }
-
             .form-group textarea {
                 resize: vertical;
             }
@@ -604,7 +596,7 @@
                 activityDetailsModal.style.display = "none";
             }
         }
-        
+
     </script>
 </body>
 
