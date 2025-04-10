@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class ActivityController extends Controller
 {
@@ -70,7 +71,7 @@ class ActivityController extends Controller
         $activity->activity_update_at = now()->toDateTimeString();
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
-        $activity->activity_status = 'รอตรวจสอบ'; // หรือสถานะเริ่มต้น
+        $activity->activity_status = 'กำลังดำเนินการ'; // หรือสถานะเริ่มต้น
 
         //$data = $req->all();
         //$data['users_id'] = Auth::id();
@@ -213,6 +214,28 @@ class ActivityController extends Controller
     return redirect()->back()->with('success','activity has been deleted successfully');
 
 }
+    public function checkSheet() {
+        return view('central/checkSheetCentral');
+    }
+
+    public function historyDetailProvince()
+    {
+        // Replace 'region' with an existing column, e.g., 'province'
+
+        return view('province/check-detail');
+    }
+
+    public function lock(Request $request)
+    {
+        Session::put('activity_locked', true); // หรือบันทึกลง DB ตาม user/กิจกรรม
+        return response()->json(['status' => 'locked']);
+    }
+
+    public function unlock(Request $request)
+    {
+        Session::forget('activity_locked');
+        return response()->json(['status' => 'unlocked']);
+    }
 }
 
 
