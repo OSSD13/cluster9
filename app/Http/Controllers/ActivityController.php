@@ -66,7 +66,8 @@ class ActivityController extends Controller
         $activity->activity_date = $req->input('activity_date');
         $activity->categories_id = $cat_id;
         $activity->activity_report_date = now()->toDateTimeString();
-        $activity->activity_report_date
+        $activity->activity_report_date;
+        $activity->activity_permission = 'V';
         $activity->activity_update_at = now()->toDateTimeString();
         $activity->activity_year = now()->year;
         $activity->users_id = auth()->id();
@@ -212,17 +213,10 @@ class ActivityController extends Controller
 
     return redirect()->back()->with('success','activity has been deleted successfully');
 
-}
-    public function checkSheet() {
-        return view('central/checkSheetCentral');
     }
 
-    public function historyDetailProvince()
-    {
-        // Replace 'region' with an existing column, e.g., 'province'
 
-        return view('province/check-detail');
-    }
+
 
     public function lock(Request $request)
     {

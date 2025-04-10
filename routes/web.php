@@ -80,8 +80,8 @@ Route::middleware([CentralOfficer::class, 'auth'])->group(function () {
     Route::get('/dashboard/central', [CategoryController::class, 'dashboard_central'])->name('cdashboard');
     Route::get('/categories/historyCentral', [ActivityController::class, 'viewSheet'])->name('viewSheet');
     Route::get('/categories/historySheet', [ActivityController::class, 'historySheet'])->name('historySheet');
-    Route::get('categories/checkActivityCentral', [ActivityController::class, 'checkByCentral'])->name('checkByCentral');
-    Route::get('categories/checkSheetCentral', [ActivityController::class, 'checkSheet'])->name('checkSheetByProvince');
+    Route::get('/categories/checkActivityCentral', [ActivityController::class, 'checkByCentral'])->name('checkByCentral');
+    Route::get('/categories/checkSheetCentral', [ActivityController::class, 'checkSheet'])->name('checkSheetByProvince');
     Route::get('/centraldashboard', [DashboardController::class, 'index_central'])->name('cdashboard');
 
 
